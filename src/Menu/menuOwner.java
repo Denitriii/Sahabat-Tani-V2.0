@@ -25,7 +25,7 @@ private JPanel selectedKlik = null;
     public menuOwner() {
         initComponents();
         lbNama.setText( SessionManager.getNamaPengguna());
-        lbRole.setText(sessionRole.getNamaPengguna());
+        lbRole.setText(sessionRole.getRolePengguna());
 
         
     }
@@ -41,32 +41,32 @@ private JPanel selectedKlik = null;
 
         jPanel2 = new javax.swing.JPanel();
         pnKiri = new javax.swing.JPanel();
-        roundedPanel1 = new Menu.RoundedPanel();
+        roundedPanel1 = new customComponen.RoundedPanel();
         jLabel1 = new javax.swing.JLabel();
-        pnDashboard = new Menu.RoundedPanel();
+        pnDashboard = new customComponen.RoundedPanel();
         jLabel3 = new javax.swing.JLabel();
         btnDashboard = new javax.swing.JLabel();
         pnKlik7 = new javax.swing.JPanel();
-        pnTransaksi = new Menu.RoundedPanel();
+        pnTransaksi = new customComponen.RoundedPanel();
         jLabel4 = new javax.swing.JLabel();
         btnTransaki = new javax.swing.JLabel();
         pnKlik6 = new javax.swing.JPanel();
-        pnBarang = new Menu.RoundedPanel();
+        pnBarang = new customComponen.RoundedPanel();
         jLabel5 = new javax.swing.JLabel();
         btnBarang = new javax.swing.JLabel();
         pnKlik3 = new javax.swing.JPanel();
-        pnLaporan = new Menu.RoundedPanel();
+        pnLaporan = new customComponen.RoundedPanel();
         jLabel6 = new javax.swing.JLabel();
         btnLaporan = new javax.swing.JLabel();
         pnKlik5 = new javax.swing.JPanel();
-        pnAkun = new Menu.RoundedPanel();
+        pnAkun = new customComponen.RoundedPanel();
         jLabel7 = new javax.swing.JLabel();
         btnAkun = new javax.swing.JLabel();
         pnKlik4 = new javax.swing.JPanel();
         pn_kanan = new javax.swing.JPanel();
         pnBaratas = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        roundedPanel2 = new Menu.RoundedPanel();
+        roundedPanel2 = new customComponen.RoundedPanel();
         lbNama = new javax.swing.JLabel();
         lbRole = new javax.swing.JLabel();
         pnKonten = new javax.swing.JPanel();
@@ -263,9 +263,8 @@ private JPanel selectedKlik = null;
                 .addGap(10, 10, 10)
                 .addGroup(pnBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(pnKlik3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnBarang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnBarang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
         );
 
@@ -457,10 +456,10 @@ private JPanel selectedKlik = null;
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
                 .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         pnBaratas.add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -687,10 +686,10 @@ private JPanel selectedKlik = null;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbNama;
     private javax.swing.JLabel lbRole;
-    private Menu.RoundedPanel pnAkun;
-    private Menu.RoundedPanel pnBarang;
+    private customComponen.RoundedPanel pnAkun;
+    private customComponen.RoundedPanel pnBarang;
     private javax.swing.JPanel pnBaratas;
-    private Menu.RoundedPanel pnDashboard;
+    private customComponen.RoundedPanel pnDashboard;
     private javax.swing.JPanel pnKiri;
     private javax.swing.JPanel pnKlik3;
     private javax.swing.JPanel pnKlik4;
@@ -698,10 +697,10 @@ private JPanel selectedKlik = null;
     private javax.swing.JPanel pnKlik6;
     private javax.swing.JPanel pnKlik7;
     private javax.swing.JPanel pnKonten;
-    private Menu.RoundedPanel pnLaporan;
-    private Menu.RoundedPanel pnTransaksi;
+    private customComponen.RoundedPanel pnLaporan;
+    private customComponen.RoundedPanel pnTransaksi;
     private javax.swing.JPanel pn_kanan;
-    private Menu.RoundedPanel roundedPanel1;
-    private Menu.RoundedPanel roundedPanel2;
+    private customComponen.RoundedPanel roundedPanel1;
+    private customComponen.RoundedPanel roundedPanel2;
     // End of variables declaration//GEN-END:variables
 }

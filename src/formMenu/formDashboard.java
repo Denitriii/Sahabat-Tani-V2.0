@@ -27,12 +27,12 @@ public class formDashboard extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        roundedPanel1 = new Menu.RoundedPanel();
+        roundedPanel1 = new customComponen.RoundedPanel();
         jLabel1 = new javax.swing.JLabel();
-        roundedPanel2 = new Menu.RoundedPanel();
-        roundedPanel3 = new Menu.RoundedPanel();
+        roundedPanel2 = new customComponen.RoundedPanel();
+        roundedPanel3 = new customComponen.RoundedPanel();
         jLabel2 = new javax.swing.JLabel();
-        roundedPanel4 = new Menu.RoundedPanel();
+        roundedPanel4 = new customComponen.RoundedPanel();
         jLabel3 = new javax.swing.JLabel();
 
         setLayout(new java.awt.CardLayout());
@@ -159,9 +159,9 @@ public class formDashboard extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private Menu.RoundedPanel roundedPanel1;
-    private Menu.RoundedPanel roundedPanel2;
-    private Menu.RoundedPanel roundedPanel3;
-    private Menu.RoundedPanel roundedPanel4;
+    private customComponen.RoundedPanel roundedPanel1;
+    private customComponen.RoundedPanel roundedPanel2;
+    private customComponen.RoundedPanel roundedPanel3;
+    private customComponen.RoundedPanel roundedPanel4;
     // End of variables declaration//GEN-END:variables
 }

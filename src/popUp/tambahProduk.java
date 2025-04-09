@@ -47,8 +47,8 @@ public class tambahProduk extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnBackground = new Menu.RoundedPanel();
-        roundedPanel1 = new Menu.RoundedPanel();
+        pnBackground = new customComponen.RoundedPanel();
+        roundedPanel1 = new customComponen.RoundedPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -70,7 +70,6 @@ public class tambahProduk extends javax.swing.JDialog {
         cbTipePenjualan = new javax.swing.JComboBox<>();
         cbKategori = new javax.swing.JComboBox<>();
         dcTanggalExp = new com.toedter.calendar.JDateChooser();
-        btnSimpan = new rojerusan.RSMaterialButtonRectangle();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -82,6 +81,7 @@ public class tambahProduk extends javax.swing.JDialog {
         txtRestock = new javax.swing.JTextField();
         lbFoto = new javax.swing.JLabel();
         btnUpload = new javax.swing.JButton();
+        btnSimpan = new rojerusan.RSMaterialButtonRectangle();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -188,14 +188,6 @@ public class tambahProduk extends javax.swing.JDialog {
             }
         });
 
-        btnSimpan.setBackground(new java.awt.Color(70, 155, 126));
-        btnSimpan.setText("Simpan");
-        btnSimpan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSimpanActionPerformed(evt);
-            }
-        });
-
         jLabel13.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(51, 51, 51));
         jLabel13.setText("Nama Suplier");
@@ -236,6 +228,13 @@ public class tambahProduk extends javax.swing.JDialog {
             }
         });
 
+        btnSimpan.setText("Simpan");
+        btnSimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSimpanActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnBackgroundLayout = new javax.swing.GroupLayout(pnBackground);
         pnBackground.setLayout(pnBackgroundLayout);
         pnBackgroundLayout.setHorizontalGroup(
@@ -244,50 +243,57 @@ public class tambahProduk extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnBackgroundLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(pnBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4)
                     .addGroup(pnBackgroundLayout.createSequentialGroup()
                         .addGroup(pnBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel6)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
                             .addGroup(pnBackgroundLayout.createSequentialGroup()
-                                .addComponent(jLabel9)
                                 .addGroup(pnBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel6)
                                     .addGroup(pnBackgroundLayout.createSequentialGroup()
-                                        .addGap(22, 22, 22)
+                                        .addComponent(jLabel9)
                                         .addGroup(pnBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtHargaEcer, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtHargaJual, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(spStok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(spBerat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtNamaPupuk, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(pnBackgroundLayout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(cbTipePenjualan, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGroup(pnBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnBackgroundLayout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(jLabel10)
-                                .addGap(75, 75, 75)
-                                .addComponent(cbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnBackgroundLayout.createSequentialGroup()
+                                            .addGroup(pnBackgroundLayout.createSequentialGroup()
+                                                .addGap(22, 22, 22)
+                                                .addGroup(pnBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(txtHargaEcer, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(txtHargaJual, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(spStok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(spBerat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(txtNamaPupuk, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(pnBackgroundLayout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addComponent(cbTipePenjualan, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                 .addGroup(pnBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(pnBackgroundLayout.createSequentialGroup()
                                         .addGap(19, 19, 19)
-                                        .addComponent(jLabel11))
+                                        .addComponent(jLabel10)
+                                        .addGap(75, 75, 75)
+                                        .addComponent(cbKategori, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(pnBackgroundLayout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
                                         .addGroup(pnBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel16)
-                                            .addComponent(jLabel12)
-                                            .addComponent(jLabel15))))
-                                .addGap(18, 18, 18)
-                                .addGroup(pnBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtBarcode)
-                                    .addComponent(dcTanggalExp, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtKontakSuplier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtRestock, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)))))
+                                            .addGroup(pnBackgroundLayout.createSequentialGroup()
+                                                .addGap(19, 19, 19)
+                                                .addComponent(jLabel11))
+                                            .addGroup(pnBackgroundLayout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addGroup(pnBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel16)
+                                                    .addComponent(jLabel12)
+                                                    .addComponent(jLabel15))))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(pnBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtBarcode)
+                                            .addComponent(dcTanggalExp, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtKontakSuplier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(txtRestock, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                        .addGroup(pnBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnUpload, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
+                        .addGap(61, 61, 61))
                     .addGroup(pnBackgroundLayout.createSequentialGroup()
                         .addGroup(pnBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
@@ -297,15 +303,10 @@ public class tambahProduk extends javax.swing.JDialog {
                         .addGap(30, 30, 30)
                         .addGroup(pnBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNamaSuplier, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                .addGroup(pnBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSimpan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnBackgroundLayout.createSequentialGroup()
-                        .addGroup(pnBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnUpload, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
-                        .addGap(61, 61, 61))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         pnBackgroundLayout.setVerticalGroup(
             pnBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -361,13 +362,17 @@ public class tambahProduk extends javax.swing.JDialog {
                     .addComponent(txtRestock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel14)
-                        .addComponent(jLabel15)
-                        .addComponent(txtKontakSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnBackgroundLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(71, Short.MAX_VALUE))
+                    .addGroup(pnBackgroundLayout.createSequentialGroup()
+                        .addGroup(pnBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel15)
+                            .addComponent(txtKontakSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -436,10 +441,7 @@ public class tambahProduk extends javax.swing.JDialog {
             imageData = bos.toByteArray();
         }
 
-        BufferedImage bi = new BufferedImage(142, 172, BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2 = bi.createGraphics();
-        icon.paintIcon(null, g2, 0, 0);
-        g2.dispose();
+        
 
 
         // Ambil data dari form
@@ -539,7 +541,7 @@ public class tambahProduk extends javax.swing.JDialog {
         JOptionPane.showMessageDialog(this, "Masukkan jumlah restock dan harga beli yang valid!", "Input Error", JOptionPane.ERROR_MESSAGE);
         ex.printStackTrace();
     } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(this, "Gagal menyimpan produk. Error database: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Gagal menyimpan produk. Error database: "+ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
         ex.printStackTrace();
     } catch (Exception ex) {
         JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menyimpan produk!"+ex.getMessage(), "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -613,8 +615,8 @@ public class tambahProduk extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbFoto;
-    private Menu.RoundedPanel pnBackground;
-    private Menu.RoundedPanel roundedPanel1;
+    private customComponen.RoundedPanel pnBackground;
+    private customComponen.RoundedPanel roundedPanel1;
     private javax.swing.JSpinner spBerat;
     private javax.swing.JSpinner spStok;
     private javax.swing.JTextArea taAlamat;

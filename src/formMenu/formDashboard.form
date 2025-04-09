@@ -64,7 +64,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="Menu.RoundedPanel" name="roundedPanel1">
+        <Container class="customComponen.RoundedPanel" name="roundedPanel1">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -103,7 +103,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="Menu.RoundedPanel" name="roundedPanel2">
+        <Container class="customComponen.RoundedPanel" name="roundedPanel2">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -123,7 +123,7 @@
             </DimensionLayout>
           </Layout>
         </Container>
-        <Container class="Menu.RoundedPanel" name="roundedPanel3">
+        <Container class="customComponen.RoundedPanel" name="roundedPanel3">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="97" red="7d" type="rgb"/>
@@ -162,7 +162,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="Menu.RoundedPanel" name="roundedPanel4">
+        <Container class="customComponen.RoundedPanel" name="roundedPanel4">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="66" green="72" red="4a" type="rgb"/>

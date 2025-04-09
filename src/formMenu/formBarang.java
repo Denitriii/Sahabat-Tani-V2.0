@@ -86,12 +86,12 @@ public class formBarang extends RoundedPanel {
     }
 
     // **Membuat kartu produk**
-    private JPanel createCard(Pupuk pupuk) {
-        JPanel card = new JPanel(new BorderLayout());
+    private RoundedPanel createCard(Pupuk pupuk) {
+        RoundedPanel card = new RoundedPanel();
+        card.setLayout(new BorderLayout());
         card.setPreferredSize(new Dimension(200, 250));  
         card.setBackground(Color.WHITE);
-        card.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
-
+        card.setCornerRadius(35);
         // **Label untuk gambar produk**
         JLabel imageLabel = new JLabel();
         imageLabel.setHorizontalAlignment(JLabel.CENTER);

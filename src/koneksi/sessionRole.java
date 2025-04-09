@@ -15,7 +15,7 @@ public class sessionRole {
         rolePengguna = role;
     }
 
-    public static String getNamaPengguna() {
+    public static String getRolePengguna() {
         return rolePengguna;
     }
 }

@@ -1,10 +1,11 @@
 
 
-package Menu;
+package customComponen;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.LayoutManager;
 import java.awt.RenderingHints;
 import javax.swing.JPanel;
 
@@ -14,6 +15,12 @@ public class RoundedPanel extends JPanel {
 
     public RoundedPanel() {
         super();
+        setOpaque(false);
+    }
+
+    // Konstruktor baru dengan LayoutManager
+    public RoundedPanel(LayoutManager layout) {
+        super(layout);
         setOpaque(false);
     }
 
