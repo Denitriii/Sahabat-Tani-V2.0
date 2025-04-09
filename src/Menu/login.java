@@ -48,12 +48,12 @@ public class login extends javax.swing.JFrame {
 
     @Override
     public void removeUpdate(DocumentEvent e) {
-        // Tidak perlu melakukan apa-apa
+        
     }
 
     @Override
     public void changedUpdate(DocumentEvent e) {
-        // Tidak perlu melakukan apa-apa
+        
     }
 
     private void restartTimer() {
@@ -180,19 +180,27 @@ public class login extends javax.swing.JFrame {
                 
                  SessionManager.setNamaPengguna(nama);
                  sessionRole.setRolePengguna(role);
+                 SessionManager.setIdPengguna(idUser);
                 JOptionPane.showMessageDialog(this, "Login berhasil sebagai " + role);
                 if ("owner".equals(role)) {
                     new menuOwner().setVisible(true);
                     dispose();
                 } else if ("kasir".equals(role)) {
-                    int pilihan = JOptionPane.showConfirmDialog(null, "Apakah ingin melakukan presensi?", "Presensi", JOptionPane.YES_NO_OPTION);
-                    
-                    if (pilihan == JOptionPane.YES_OPTION) {
-                        String status = tentukanStatusPresensi();
-                        simpanPresensi(idUser, status);
-                        JOptionPane.showMessageDialog(null, "Presensi berhasil: " + status);
+                    LocalTime waktuReal = LocalTime.now();
+                    String status = tentukanStatusPresensi(waktuReal);
+                    if (status.equals("masuk")) {
+                        if (!mengecekPresensi(idUser, "masuk")) {
+                            simpanPresensi(idUser, status);
+                            JOptionPane.showMessageDialog(this, "presensi masuk berhasil");
+                            
+                        }
+                    }else if(status.equals("pulang")){
+                        if (!mengecekPresensi(idUser, "pulang")) {
+                            simpanPresensi(idUser, status);
+                            JOptionPane.showMessageDialog(this, "presensi pulang berhasil");
+                        }
                     }
-                    new menuOwner().setVisible(true);
+                    new menuKasir().setVisible(true);
                     dispose();
                 }
                 
@@ -201,17 +209,17 @@ public class login extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "RFID tidak terdaftar!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            
         }
     }
-    private String tentukanStatusPresensi() {
+    private String tentukanStatusPresensi(LocalTime waktuReal) {
         LocalTime waktuSekarang = LocalTime.now();
         System.out.println("Waktu Sekarang: " + waktuSekarang);
         
         if (waktuSekarang.isBefore(LocalTime.of(9, 0))) {
                return "masuk"; // Hadir tepat waktu (antara 08:00 - 08:59)
            } else if (waktuSekarang.isBefore(LocalTime.of(15, 0))) {
-               return "telat"; // Terlambat (antara 09:00 - 14:59)
+               return "masuk"; // Terlambat (antara 09:00 - 14:59)
            } else {
                return "pulang"; 
            }
@@ -234,8 +242,22 @@ public class login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Gagal menyimpan presensi!\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 
         }
+    
     }
-
+      private boolean mengecekPresensi(String idUser, String status){
+          String sql ="SELECT COUNT(*) FROM absensi WHERE id_user = ? AND status = ? AND tanggal = CURDATE()";
+          try (PreparedStatement st = conn.prepareStatement(sql)){
+              st.setString(1, idUser);
+              st.setString(2, status);
+              ResultSet rs = st.executeQuery();
+              if(rs.next()){
+                  return rs.getInt(1)>0;
+              }
+          } catch (Exception e) {
+              e.printStackTrace();
+          }
+          return false;
+    }
     /**
      * @param args the command line arguments
      */
