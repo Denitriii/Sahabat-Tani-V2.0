@@ -22,7 +22,13 @@ import java.sql.Connection;
 import javax.imageio.ImageIO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import koneksi.SessionManager;
 import koneksi.koneksiDB;
+import java.sql.*;
+import java.util.UUID;
 /**
  *
  * @author user
@@ -192,7 +198,7 @@ public class formBarang extends RoundedPanel {
     JTextField txtHarga = new JTextField(String.valueOf(pupuk.getHarga()));
     JTextField txtStock = new JTextField(String.valueOf(pupuk.getStock()));
     JDateChooser tglExp = new JDateChooser();
-    tglExp.setDateFormatString("dd-MM-yyyy"); // Format Indonesia
+    tglExp.setDateFormatString("yyyy-MM-dd"); // Format Indonesia
 
 
     Object[] fields = {
@@ -208,7 +214,7 @@ public class formBarang extends RoundedPanel {
         pupuk.setNama(txtNama.getText());
         pupuk.setHarga(Integer.parseInt(txtHarga.getText()));
         pupuk.setStock(Integer.parseInt(txtStock.getText()));
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String tglExpiredFormatted = sdf.format(tglExp.getDate());
         
         pupuk.setTglExpired(tglExpiredFormatted); 
@@ -248,9 +254,12 @@ public class formBarang extends RoundedPanel {
 
     JMenuItem deleteItem = new JMenuItem("Hapus");
     deleteItem.addActionListener(e -> deletePupuk(pupuk.getId())); // Metode untuk menghapus
-
+    
+    JMenuItem restock = new JMenuItem("Restock");
+    restock.addActionListener(e -> tampilkanDialogRestok(pupuk));
     popupMenu.add(editItem);
     popupMenu.add(deleteItem);
+    popupMenu.add(restock);
     
     popupMenu.show(button, 0, button.getHeight()); // Tampilkan di bawah tombol
 }
@@ -277,6 +286,94 @@ private void deletePupuk(String idPupuk) {
         }
     }
 }
+private void tampilkanDialogRestok(Pupuk pupuk) {
+    JTextField tfJumlah = new JTextField();
+    JTextField tfHargaBeli = new JTextField();
+    JDateChooser tglExp = new JDateChooser();
+    tglExp.setDateFormatString("yyyy-MM-dd");
+    JComboBox<String> cbSuplier = new JComboBox<>();
+    Map<String, String> suplierMap = new HashMap<>();
+
+    
+     try {
+        String sql = "SELECT id_suplier, nama_suplier FROM suplier";
+        PreparedStatement st = conn.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+
+        while (rs.next()) {
+            String id = rs.getString("id_suplier");
+            String nama = rs.getString("nama_suplier");
+
+            cbSuplier.addItem(nama);
+            suplierMap.put(nama, id);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Gagal memuat data suplier");
+        return; // keluar supaya dialog tidak ditampilkan
+    }
+     
+    Object[] message = {
+        "Restok untuk: " + pupuk.getNama(),
+        "Jumlah:", tfJumlah,
+        "Harga Beli (per sak):", tfHargaBeli,
+        "Tanggal Expired",tglExp,
+        "Suplier",cbSuplier
+    };
+
+    int option = JOptionPane.showConfirmDialog(null, message, "Restok Produk", JOptionPane.OK_CANCEL_OPTION);
+
+    if (option == JOptionPane.OK_OPTION) {
+        try {
+            int jumlah = Integer.parseInt(tfJumlah.getText());
+            double hargaBeli = Double.parseDouble(tfHargaBeli.getText());
+             if (jumlah <= 0 || hargaBeli <= 0) {
+                JOptionPane.showMessageDialog(null, "Jumlah dan harga beli harus lebih dari 0!");
+                return;
+            }
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String tglExpired = sdf.format(tglExp.getDate());
+            String namaSuplierDipilih = cbSuplier.getSelectedItem().toString();
+            String idSuplier = suplierMap.get(namaSuplierDipilih); 
+
+            simpanRestokKeDatabase(pupuk.getId(), jumlah, hargaBeli,tglExpired,idSuplier);
+
+            JOptionPane.showMessageDialog(null, "Restok berhasil!");
+            refreshData();
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Input tidak valid. Pastikan jumlah dan harga berupa angka.");
+        }
+    }
+}
+private void simpanRestokKeDatabase(String idPupuk, int jumlah, double hargaBeli, String tanggalExp,String idSuplier) {
+    String idRestock = "RS-" + UUID.randomUUID().toString().substring(0, 8);
+    String sql = "INSERT INTO restock (restock_qty, harga_beli, total_harga, id_suplier, id_user, id_pupuk,id_restock,tanggal_restock) " +
+                 "VALUES (?, ?, ?, ?, ?, ?,?, NOW())";
+    String updateTanggal = "UPDATE pupuk SET tgl_expired= ? WHERE id_pupuk = ?;";
+    try (PreparedStatement st = conn.prepareStatement(sql);
+         PreparedStatement stTanggalExp = conn.prepareStatement(updateTanggal)) {
+        st.setInt(1, jumlah);
+        st.setDouble(2, hargaBeli);
+        st.setDouble(3, jumlah * hargaBeli);
+        st.setString(4, idSuplier);
+        st.setString(5, SessionManager.getIdPengguna());
+        st.setString(6, idPupuk);
+        st.setString(7, idRestock);
+
+        st.executeUpdate();
+        
+        stTanggalExp.setString(1, tanggalExp);
+        stTanggalExp.setString(2, idPupuk);
+        
+        stTanggalExp.executeUpdate();
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Gagal menyimpan restok: " + e.getMessage());
+    }
+}
+
+
 
 
 
@@ -284,4 +381,6 @@ private void deletePupuk(String idPupuk) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+   
 }
