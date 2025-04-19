@@ -127,7 +127,7 @@ public class formBarang extends RoundedPanel {
 
         JLabel stockLabel = new JLabel("Stok: " + pupuk.getStock());
         stockLabel.setFont(new Font("Arial", Font.PLAIN, 12));
-        stockLabel.setForeground(pupuk.getStock() > 0 ? Color.GREEN : Color.RED);
+        stockLabel.setForeground(pupuk.getStock() > 20 ? Color.GREEN : Color.RED);
 
         JLabel expiredLabel = new JLabel("Exp: " + pupuk.getTglExpired());
         expiredLabel.setFont(new Font("Arial", Font.ITALIC, 12));
@@ -233,6 +233,7 @@ public class formBarang extends RoundedPanel {
     RoundedPanel contentPanel = new RoundedPanel();
     contentPanel.setLayout(new GridLayout(0, 3, 10, 10));
     contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
+    contentPanel.setBackground(Color.WHITE);
 
     for (Pupuk pupuk : pupukList) {
         contentPanel.add(createCard(pupuk));
