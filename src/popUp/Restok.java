@@ -29,7 +29,10 @@ public class Restok extends javax.swing.JDialog {
 
         pnJudul = new customComponen.RoundedPanel();
         jLabel1 = new javax.swing.JLabel();
-        pnKonten = new customComponen.RoundedPanel();
+        roundedPanel1 = new customComponen.RoundedPanel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -44,23 +47,37 @@ public class Restok extends javax.swing.JDialog {
         pnJudul.setLayout(pnJudulLayout);
         pnJudulLayout.setHorizontalGroup(
             pnJudulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnJudulLayout.createSequentialGroup()
-                .addContainerGap(356, Short.MAX_VALUE)
+            .addGroup(pnJudulLayout.createSequentialGroup()
+                .addGap(270, 270, 270)
                 .addComponent(jLabel1)
-                .addGap(350, 350, 350))
+                .addContainerGap(303, Short.MAX_VALUE))
         );
         pnJudulLayout.setVerticalGroup(
             pnJudulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnJudulLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(32, 32, 32)
                 .addComponent(jLabel1)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         getContentPane().add(pnJudul, java.awt.BorderLayout.PAGE_START);
 
-        pnKonten.setLayout(new javax.swing.BoxLayout(pnKonten, javax.swing.BoxLayout.LINE_AXIS));
-        getContentPane().add(pnKonten, java.awt.BorderLayout.CENTER);
+        roundedPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        roundedPanel1.setForeground(new java.awt.Color(255, 255, 255));
+        roundedPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        roundedPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 152, -1));
+
+        jTextField1.setText("jTextField1");
+        roundedPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 71, -1));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel2.setText("Nama Produk");
+        roundedPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
+
+        getContentPane().add(roundedPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -108,8 +125,11 @@ public class Restok extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JTextField jTextField1;
     private customComponen.RoundedPanel pnJudul;
-    private customComponen.RoundedPanel pnKonten;
+    private customComponen.RoundedPanel roundedPanel1;
     // End of variables declaration//GEN-END:variables
 }

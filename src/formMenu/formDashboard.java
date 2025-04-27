@@ -8,6 +8,15 @@ package formMenu;
  *
  * @author user
  */
+import java.awt.BorderLayout;
+import java.awt.Color;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
+
 public class formDashboard extends javax.swing.JPanel {
 
     /**
@@ -15,6 +24,7 @@ public class formDashboard extends javax.swing.JPanel {
      */
     public formDashboard() {
         initComponents();
+        initUI();
     }
 
     /**
@@ -29,7 +39,7 @@ public class formDashboard extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         roundedPanel1 = new customComponen.RoundedPanel();
         jLabel1 = new javax.swing.JLabel();
-        roundedPanel2 = new customComponen.RoundedPanel();
+        pnChart = new customComponen.RoundedPanel();
         roundedPanel3 = new customComponen.RoundedPanel();
         jLabel2 = new javax.swing.JLabel();
         roundedPanel4 = new customComponen.RoundedPanel();
@@ -62,16 +72,16 @@ public class formDashboard extends javax.swing.JPanel {
                 .addContainerGap(126, Short.MAX_VALUE))
         );
 
-        roundedPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        pnChart.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout roundedPanel2Layout = new javax.swing.GroupLayout(roundedPanel2);
-        roundedPanel2.setLayout(roundedPanel2Layout);
-        roundedPanel2Layout.setHorizontalGroup(
-            roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnChartLayout = new javax.swing.GroupLayout(pnChart);
+        pnChart.setLayout(pnChartLayout);
+        pnChartLayout.setHorizontalGroup(
+            pnChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 534, Short.MAX_VALUE)
         );
-        roundedPanel2Layout.setVerticalGroup(
-            roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnChartLayout.setVerticalGroup(
+            pnChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 431, Short.MAX_VALUE)
         );
 
@@ -128,14 +138,16 @@ public class formDashboard extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(roundedPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(roundedPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(94, Short.MAX_VALUE))
+                        .addComponent(roundedPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(137, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(pnChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,12 +158,51 @@ public class formDashboard extends javax.swing.JPanel {
                     .addComponent(roundedPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(roundedPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(83, 83, 83)
-                .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(66, Short.MAX_VALUE))
         );
 
         add(jPanel1, "card2");
     }// </editor-fold>//GEN-END:initComponents
+ private void initUI() {
+        // Bikin dataset dummy
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dataset.addValue(6000, "Sales", "Sun");
+        dataset.addValue(9000, "Sales", "Mon");
+        dataset.addValue(1000, "Sales", "Tue");
+        dataset.addValue(4000, "Sales", "Wed");
+        dataset.addValue(3500, "Sales", "Thu");
+        dataset.addValue(6000, "Sales", "Fri");
+        dataset.addValue(5800, "Sales", "Sat");
+
+        // Bikin chart
+        JFreeChart lineChart = ChartFactory.createLineChart(
+                "Sales Analytics",    // Judul grafik
+                "Day",                 // Label X
+                "Sales (Rp)",          // Label Y
+                dataset
+        );
+
+    lineChart.setBackgroundPaint(Color.WHITE);
+
+    // Ubah background area plot (yang tadinya abu-abu) jadi putih
+    lineChart.getPlot().setBackgroundPaint(Color.WHITE);
+
+    // Ubah warna garis grafik
+    CategoryPlot plot = (CategoryPlot) lineChart.getPlot();
+    LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
+    renderer.setSeriesPaint(0, Color.GREEN); // 0 = index dataset ke-0, warnai hijau
+       ChartPanel chartPanel = new ChartPanel(lineChart);
+    chartPanel.setOpaque(false);
+
+    // Setup layout pnChart sebelum ditambahin
+    pnChart.setLayout(new BorderLayout());
+    pnChart.removeAll(); // Hapus semua isi sebelumnya kalau ada
+    pnChart.add(chartPanel, BorderLayout.CENTER);
+
+    pnChart.revalidate();  // Refresh layout
+    pnChart.repaint();     // Refresh tampilan
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -159,8 +210,8 @@ public class formDashboard extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private customComponen.RoundedPanel pnChart;
     private customComponen.RoundedPanel roundedPanel1;
-    private customComponen.RoundedPanel roundedPanel2;
     private customComponen.RoundedPanel roundedPanel3;
     private customComponen.RoundedPanel roundedPanel4;
     // End of variables declaration//GEN-END:variables

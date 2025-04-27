@@ -158,6 +158,7 @@ public static void updatePupuk(Pupuk pupuk) {
                     rs.getInt("stock"),
                     rs.getString("tgl_expired"), // Ambil tanggal expired
                     rs.getBytes("id_gambar")
+                 
                 );
             }
 

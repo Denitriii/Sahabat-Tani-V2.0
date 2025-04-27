@@ -26,6 +26,7 @@ public class Pupuk {
     private String tglExpired; // Tambahkan atribut tanggal expired
     private String barcode;
     private byte[] idGambar;
+    
 
     // Constructor
     public Pupuk(String idPupuk, String nama, int hargaJual, int stock, String tglExpired, byte[] idGambar) {
@@ -35,9 +36,16 @@ public class Pupuk {
     this.stock = stock;
     this.tglExpired = tglExpired;
     this.idGambar = idGambar;
+    //this.idSuplier = idSuplier;
 }
 
     // Getter dan Setter untuk tglExpired
+//    public String getIdSuplier(){
+//        return idSuplier;
+//    }
+//    public void setIdSuplier(String idSuplier){
+//        this.idSuplier= idSuplier;
+//    }
     public String getTglExpired() {
         return tglExpired;
     }
