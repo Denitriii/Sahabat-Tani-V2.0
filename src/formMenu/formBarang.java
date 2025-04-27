@@ -91,19 +91,19 @@ public class formBarang extends RoundedPanel {
         contentPanel.repaint();
     }
 
-    // **Membuat kartu produk**
+    // Membuat kartu produk
     private RoundedPanel createCard(Pupuk pupuk) {
         RoundedPanel card = new RoundedPanel();
         card.setLayout(new BorderLayout());
         card.setPreferredSize(new Dimension(200, 250));  
         card.setBackground(Color.WHITE);
         card.setCornerRadius(35);
-        // **Label untuk gambar produk**
+        // Label untuk gambar produk
         JLabel imageLabel = new JLabel();
         imageLabel.setHorizontalAlignment(JLabel.CENTER);
         imageLabel.setPreferredSize(new Dimension(142, 174));
 
-        // **Ambil gambar dari database**
+        // Ambil gambar dari database
         
         ImageIcon icon = pupuk.getImageIcon();
         if (icon != null) {
@@ -113,7 +113,7 @@ public class formBarang extends RoundedPanel {
             imageLabel.setText("No Image");
         }
 
-        // **Panel informasi produk**
+        // Panel informasi produk
         JPanel infoPanel = new JPanel();
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
         infoPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
@@ -137,7 +137,7 @@ public class formBarang extends RoundedPanel {
         infoPanel.add(stockLabel);
         infoPanel.add(expiredLabel);
 
-        // **Panel atas untuk tombol opsi**
+        // Panel untuk  tombol option
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 5));
         topPanel.setOpaque(false);
 
@@ -151,7 +151,7 @@ public class formBarang extends RoundedPanel {
 
         topPanel.add(btnOptions);
 
-        // **Tata letak elemen dalam kartu**
+        
         card.add(topPanel, BorderLayout.NORTH);
         card.add(imageLabel, BorderLayout.CENTER);
         card.add(infoPanel, BorderLayout.SOUTH);
@@ -197,29 +197,26 @@ public class formBarang extends RoundedPanel {
     JTextField txtNama = new JTextField(pupuk.getNama());
     JTextField txtHarga = new JTextField(String.valueOf(pupuk.getHarga()));
     JTextField txtStock = new JTextField(String.valueOf(pupuk.getStock()));
-    JDateChooser tglExp = new JDateChooser();
-    tglExp.setDateFormatString("yyyy-MM-dd"); // Format Indonesia
+    
 
 
     Object[] fields = {
         "Nama:", txtNama,
         "Harga:", txtHarga,
-        "Stock:", txtStock,
-        "Tanggal Exp",tglExp
+        "Stock:", txtStock
     };
 
     int result = JOptionPane.showConfirmDialog(null, fields, "Edit Produk", JOptionPane.OK_CANCEL_OPTION);
 
     if (result == JOptionPane.OK_OPTION) {
-        pupuk.setNama(txtNama.getText());
-        pupuk.setHarga(Integer.parseInt(txtHarga.getText()));
-        pupuk.setStock(Integer.parseInt(txtStock.getText()));
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String tglExpiredFormatted = sdf.format(tglExp.getDate());
-        
-        pupuk.setTglExpired(tglExpiredFormatted); 
-        PupukDAO.updatePupuk(pupuk); // Simpan ke database
-        refreshData(); // Refresh tampilan
+        String nama =txtNama.getText();
+        double harga = Double.parseDouble(txtHarga.getText());
+        int stok = Integer.parseInt(txtStock.getText());
+        String idPupuk = pupuk.getId();
+
+        simpanEdite(nama,harga,stok,idPupuk);
+        JOptionPane.showMessageDialog(this, "Berhasil edit produk");
+        loadProduk();
     }
 }
     private void refreshData() {
@@ -233,7 +230,7 @@ public class formBarang extends RoundedPanel {
     RoundedPanel contentPanel = new RoundedPanel();
     contentPanel.setLayout(new GridLayout(0, 3, 10, 10));
     contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
-    contentPanel.setBackground(Color.WHITE);
+    contentPanel.setBackground(Color.GRAY);
 
     for (Pupuk pupuk : pupukList) {
         contentPanel.add(createCard(pupuk));
@@ -382,6 +379,23 @@ private void simpanRestokKeDatabase(String idPupuk, int jumlah, double hargaBeli
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+    private void simpanEdite(String nama, double harga, int stok,String idPupuk) {
+        String sqlEdit ="UPDATE pupuk SET nama_pupuk =?, harga_jual = ? , stock = ? WHERE id_pupuk =?";
+        
+        try(PreparedStatement pst = conn.prepareCall(sqlEdit)) {
+            pst.setString(1, nama);
+            pst.setDouble(2, harga);
+            pst.setInt(3, stok);
+            pst.setString(4, idPupuk);
+            
+            pst.executeUpdate();
+            
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Edit gagal !"+e.getMessage(),"ERROR !",JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
    
 }
