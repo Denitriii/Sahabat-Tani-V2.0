@@ -180,7 +180,7 @@ public class login extends javax.swing.JFrame {
                 
                  SessionManager.setNamaPengguna(nama);
                  sessionRole.setRolePengguna(role);
-                 SessionManager.setIdPengguna(idUser);
+                 SessionManager.setIdUser(idUser);
                 JOptionPane.showMessageDialog(this, "Login berhasil sebagai " + role);
                 if ("owner".equals(role)) {
                     new menuOwner().setVisible(true);

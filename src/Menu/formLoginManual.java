@@ -4,6 +4,8 @@
  */
 package Menu;
 
+import Menu.menuKasir;
+import Menu.menuOwner;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import koneksi.koneksiDB;
@@ -31,7 +33,9 @@ public class formLoginManual extends javax.swing.JFrame {
         initComponents();
         conn = koneksiDB.BukaKoneksi();
         hidePass.setVisible(false);
-
+        
+        txtUsername.addActionListener(e -> LoginProses());
+        txtPass.addActionListener(e -> LoginProses());
     }
 
     /**
@@ -51,9 +55,10 @@ public class formLoginManual extends javax.swing.JFrame {
         showPass = new javax.swing.JLabel();
         hidePass = new javax.swing.JLabel();
         roundedPanel1 = new customComponen.RoundedPanel();
-        jLabel1 = new javax.swing.JLabel();
+        btnLogin = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        btnFormRFID = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         bgUtama = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,7 +68,6 @@ public class formLoginManual extends javax.swing.JFrame {
 
         pnUsername.setBackground(new java.awt.Color(255, 255, 255));
 
-        txtUsername.setBackground(new java.awt.Color(255, 255, 255));
         txtUsername.setFont(new java.awt.Font("Arial", 0, 22)); // NOI18N
         txtUsername.setForeground(new java.awt.Color(51, 51, 51));
         txtUsername.setText("Username");
@@ -98,7 +102,6 @@ public class formLoginManual extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        txtPass.setBackground(new java.awt.Color(255, 255, 255));
         txtPass.setFont(new java.awt.Font("Arial", 0, 22)); // NOI18N
         txtPass.setForeground(new java.awt.Color(51, 51, 51));
         txtPass.setText("Password");
@@ -161,12 +164,12 @@ public class formLoginManual extends javax.swing.JFrame {
         roundedPanel1.setBackground(new java.awt.Color(70, 155, 126));
         roundedPanel1.setCornerRadius(40);
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 25)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("                           LOGIN");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnLogin.setFont(new java.awt.Font("Arial", 1, 25)); // NOI18N
+        btnLogin.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogin.setText("                           LOGIN");
+        btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                btnLoginMouseClicked(evt);
             }
         });
 
@@ -176,14 +179,14 @@ public class formLoginManual extends javax.swing.JFrame {
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
                 .addContainerGap())
         );
         roundedPanel1Layout.setVerticalGroup(
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -191,10 +194,17 @@ public class formLoginManual extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setText("Login menggunkan RFID dan absensi");
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnFormRFID.setText("Login menggunkan RFID dan absensi");
+        btnFormRFID.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
+                btnFormRFIDMouseClicked(evt);
+            }
+        });
+
+        jLabel1.setText("Lupa Password");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
             }
         });
 
@@ -204,18 +214,24 @@ public class formLoginManual extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(78, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addComponent(btnFormRFID)
                 .addGap(47, 47, 47))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(141, 141, 141)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addComponent(btnFormRFID)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 680, 320, 40));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 680, 320, 60));
 
         bgUtama.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/login #2 manual.png"))); // NOI18N
         jPanel2.add(bgUtama, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1440, 960));
@@ -235,59 +251,15 @@ public class formLoginManual extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+    private void btnFormRFIDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFormRFIDMouseClicked
         login rfid = new login();
         rfid.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jLabel2MouseClicked
+    }//GEN-LAST:event_btnFormRFIDMouseClicked
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-         try {
-            String sql ="SELECT * FROM pengguna WHERE id_user = '"+txtUsername.getText()+"' AND password = '"+txtPass.getText()+"';";
-            // menentukan login sebagai owner atau kasir
-            try(PreparedStatement st = conn.prepareStatement(sql)){
-                 rs = st.executeQuery(sql);
-                                 
-                if (rs.next()) {
-                    String nama= rs.getString("nama");
-                    String role = rs.getString("role");
-                    String idUser = rs.getString("id_user");
-                    SessionManager.setNamaPengguna(nama);
-                    sessionRole.setRolePengguna(role);
-                    SessionManager.setIdPengguna(idUser);
-                    if (txtUsername.getText().equals(rs.getString("id_user"))&&txtPass.getText().equals(rs.getString("password"))&&rs.getString("role").equals("owner")) {
-                        menuOwner owner = new menuOwner();
-                        owner.setVisible(true);
-                        dispose();
-                    }else if(txtUsername.getText().equals(rs.getString("id_user"))&&txtPass.getText().equals(rs.getString("password"))&&rs.getString("role").equals("kasir")){
-                         LocalTime waktuReal = LocalTime.now();
-                    String status = tentukanStatusPresensi(waktuReal);
-                    if (status.equals("masuk")) {
-                        if (!mengecekPresensi(idUser, "masuk")) {
-                            simpanPresensi(idUser, status);
-                            JOptionPane.showMessageDialog(this, "presensi masuk berhasil");
-                            
-                        }
-                    }else if(status.equals("pulang")){
-                        if (!mengecekPresensi(idUser, "pulang")) {
-                            simpanPresensi(idUser, status);
-                            JOptionPane.showMessageDialog(this, "presensi pulang berhasil");
-                        }
-                    }
-                    new menuKasir().setVisible(true);
-                    dispose();
-                        menuKasir kasir = new  menuKasir();
-                        kasir.setVisible(true);
-                        dispose();
-                    } 
-                }else{
-                    JOptionPane.showMessageDialog(null,"username dan password anda salah");
-                }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "username tidak terdaftar silahkan hubungi owner");
-        }
-    }//GEN-LAST:event_jLabel1MouseClicked
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
+         LoginProses();
+    }//GEN-LAST:event_btnLoginMouseClicked
 
     private void txtUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsernameFocusGained
         String username= txtUsername.getText();
@@ -331,6 +303,10 @@ public class formLoginManual extends javax.swing.JFrame {
         
 
     }//GEN-LAST:event_hidePassMouseClicked
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        JOptionPane.showMessageDialog(this, "Silahkan hubungi owner");
+    }//GEN-LAST:event_jLabel1MouseClicked
      private String tentukanStatusPresensi(LocalTime waktuReal) {
         LocalTime waktuSekarang = LocalTime.now();
         System.out.println("Waktu Sekarang: " + waktuSekarang);
@@ -377,6 +353,53 @@ public class formLoginManual extends javax.swing.JFrame {
           }
           return false;
     }
+      private void LoginProses(){
+            try {
+            String sql ="SELECT * FROM pengguna WHERE id_user = '"+txtUsername.getText()+"' AND password = '"+txtPass.getText()+"';";
+            // menentukan login sebagai owner atau kasir
+            try(PreparedStatement st = conn.prepareStatement(sql)){
+                 rs = st.executeQuery(sql);
+                                 
+                if (rs.next()) {
+                    String nama= rs.getString("nama");
+                    String role = rs.getString("role");
+                    String idUser = rs.getString("id_user");
+                    SessionManager.setNamaPengguna(nama);
+                    sessionRole.setRolePengguna(role);
+                    SessionManager.setIdUser(idUser);
+                    if (txtUsername.getText().equals(rs.getString("id_user"))&&txtPass.getText().equals(rs.getString("password"))&&rs.getString("role").equals("owner")) {
+                        menuOwner owner = new menuOwner();
+                        owner.setVisible(true);
+                        dispose();
+                    }else if(txtUsername.getText().equals(rs.getString("id_user"))&&txtPass.getText().equals(rs.getString("password"))&&rs.getString("role").equals("kasir")){
+                         LocalTime waktuReal = LocalTime.now();
+                    String status = tentukanStatusPresensi(waktuReal);
+                    if (status.equals("masuk")) {
+                        if (!mengecekPresensi(idUser, "masuk")) {
+                            simpanPresensi(idUser, status);
+                            JOptionPane.showMessageDialog(this, "presensi masuk berhasil");
+                            
+                        }
+                    }else if(status.equals("pulang")){
+                        if (!mengecekPresensi(idUser, "pulang")) {
+                            simpanPresensi(idUser, status);
+                            JOptionPane.showMessageDialog(this, "presensi pulang berhasil");
+                        }
+                    }
+                    new menuKasir().setVisible(true);
+                    dispose();
+                        menuKasir kasir = new  menuKasir();
+                        kasir.setVisible(true);
+                        dispose();
+                    } 
+                }else{
+                    JOptionPane.showMessageDialog(null,"username dan password anda salah");
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "username tidak terdaftar silahkan hubungi owner");
+        }
+      }
     /**
      * @param args the command line arguments
      */
@@ -418,9 +441,10 @@ public class formLoginManual extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bgUtama;
+    private javax.swing.JLabel btnFormRFID;
+    private javax.swing.JLabel btnLogin;
     private javax.swing.JLabel hidePass;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

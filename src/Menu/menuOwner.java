@@ -79,6 +79,8 @@ private JPanel selectedKlik = null;
         jLabel7 = new javax.swing.JLabel();
         btnAkun = new javax.swing.JLabel();
         pnKlik4 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         pn_kanan = new javax.swing.JPanel();
         pnBaratas = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -409,6 +411,19 @@ private JPanel selectedKlik = null;
 
         roundedPanel1.add(pnAkun, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 220, -1));
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logout.png"))); // NOI18N
+        roundedPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 730, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Poppins", 0, 20)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("       Logout");
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
+        roundedPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 730, 140, 50));
+
         javax.swing.GroupLayout pnKiriLayout = new javax.swing.GroupLayout(pnKiri);
         pnKiri.setLayout(pnKiriLayout);
         pnKiriLayout.setHorizontalGroup(
@@ -417,7 +432,7 @@ private JPanel selectedKlik = null;
         );
         pnKiriLayout.setVerticalGroup(
             pnKiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(roundedPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 960, Short.MAX_VALUE)
+            .addComponent(roundedPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 802, Short.MAX_VALUE)
         );
 
         jPanel2.add(pnKiri, java.awt.BorderLayout.LINE_START);
@@ -506,7 +521,7 @@ private JPanel selectedKlik = null;
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 802, Short.MAX_VALUE)
         );
 
         pack();
@@ -581,7 +596,22 @@ private JPanel selectedKlik = null;
     }//GEN-LAST:event_btnTransakiMouseExited
 
     private void btnLaporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLaporanMouseClicked
-        // TODO add your handling code here:
+         if (selectedPanel != null && selectedPanel != pnLaporan ) {
+            selectedPanel.setBackground(new Color(70,155,126));
+            
+        }
+         if (selectedKlik != null && selectedKlik != pnKlik5) {
+            selectedKlik.setBackground(new Color(70,155,126)); // Warna default
+        }
+        pnKlik5.setBackground(new Color(217,217,217));
+        pnLaporan.setBackground(new Color(50, 85, 75));
+        selectedPanel = pnLaporan;
+        selectedKlik = pnKlik5;
+
+        pnKonten.removeAll();
+        pnKonten.add(new formBarang());
+        pnKonten.repaint();
+        pnKonten.revalidate();
     }//GEN-LAST:event_btnLaporanMouseClicked
 
     private void btnLaporanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLaporanMouseEntered
@@ -589,7 +619,10 @@ private JPanel selectedKlik = null;
     }//GEN-LAST:event_btnLaporanMouseEntered
 
     private void btnLaporanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLaporanMouseExited
-        // TODO add your handling code here:
+        if (selectedPanel != pnLaporan) {
+             pnLaporan.setBackground(new Color(70,155,126));
+            pnKlik5.setBackground(new Color(70,155,126));
+        }
     }//GEN-LAST:event_btnLaporanMouseExited
 
     private void btnAkunMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAkunMouseClicked
@@ -654,6 +687,13 @@ private JPanel selectedKlik = null;
         pnKonten.revalidate();
     }//GEN-LAST:event_btnBarangMouseClicked
 
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+            dispose();
+            //kembali ke halaman login
+            formLoginManual logout = new formLoginManual();
+            logout.setVisible(true);
+    }//GEN-LAST:event_jLabel8MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -704,11 +744,13 @@ private JPanel selectedKlik = null;
     private javax.swing.JLabel btnNotif;
     private javax.swing.JLabel btnTransaki;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbNama;

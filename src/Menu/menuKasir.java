@@ -33,7 +33,7 @@ private JPanel selectedKlik = null;
         conn = koneksiDB.BukaKoneksi();
         lbNama.setText( SessionManager.getNamaPengguna());
         lbRole.setText(sessionRole.getRolePengguna());
-        String[] data = getStatusAbsensiHariIni(SessionManager.getIdPengguna());
+        String[] data = getStatusAbsensiHariIni(SessionManager.getIdUser());
 
        // lblJam.setText("Absensi Masuk: " + data[0]);
         //status.setText("Status: " + data[1]);
