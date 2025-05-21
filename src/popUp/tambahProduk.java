@@ -155,10 +155,8 @@ public class tambahProduk extends javax.swing.JDialog {
         jLabel12.setForeground(new java.awt.Color(51, 51, 51));
         jLabel12.setText("Kode Barcode");
 
-        txtBarcode.setBackground(new java.awt.Color(255, 255, 255));
         txtBarcode.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(230, 230, 230)));
 
-        txtNamaPupuk.setBackground(new java.awt.Color(255, 255, 255));
         txtNamaPupuk.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(230, 230, 230)));
         txtNamaPupuk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,10 +164,8 @@ public class tambahProduk extends javax.swing.JDialog {
             }
         });
 
-        txtHargaJual.setBackground(new java.awt.Color(255, 255, 255));
         txtHargaJual.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(230, 230, 230)));
 
-        txtHargaEcer.setBackground(new java.awt.Color(255, 255, 255));
         txtHargaEcer.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(230, 230, 230)));
 
         cbTipePenjualan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ecer dan karungan", "Karungan" }));
@@ -292,7 +288,7 @@ public class tambahProduk extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                         .addGroup(pnBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(btnUpload, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
+                            .addComponent(lbFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(61, 61, 61))
                     .addGroup(pnBackgroundLayout.createSequentialGroup()
                         .addGroup(pnBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

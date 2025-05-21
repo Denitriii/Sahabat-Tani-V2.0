@@ -407,7 +407,7 @@ private void simpanRestokKeDatabase(String idPupuk, int jumlah, double hargaBeli
         st.setDouble(2, hargaBeli);
         st.setDouble(3, jumlah * hargaBeli);
         st.setString(4, idSuplier);
-        st.setString(5, SessionManager.getIdPengguna());
+        st.setString(5, SessionManager.getIdUser());
         st.setString(6, idPupuk);
         st.setString(7, idRestock);
 

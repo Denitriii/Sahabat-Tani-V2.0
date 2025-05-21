@@ -20,11 +20,11 @@ public class SessionManager {
     public static String getNamaPengguna() {
         return namaPengguna;
     }
-   public static void setIdPengguna(String idUser) {
+   public static void setIdUser(String idUser) {
        idPengguna = idUser;
    }
    
-   public static String getIdPengguna(){
+   public static String getIdUser(){
        return idPengguna;
    }
 }
