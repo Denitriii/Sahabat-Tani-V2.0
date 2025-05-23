@@ -58,7 +58,7 @@ public class formLoginManual extends javax.swing.JFrame {
         btnLogin = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnFormRFID = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        btnLupaPassword = new javax.swing.JLabel();
         bgUtama = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -201,10 +201,10 @@ public class formLoginManual extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Lupa Password");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnLupaPassword.setText("Lupa Password");
+        btnLupaPassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                btnLupaPasswordMouseClicked(evt);
             }
         });
 
@@ -218,7 +218,7 @@ public class formLoginManual extends javax.swing.JFrame {
                 .addGap(47, 47, 47))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(141, 141, 141)
-                .addComponent(jLabel1)
+                .addComponent(btnLupaPassword)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -227,7 +227,7 @@ public class formLoginManual extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnFormRFID)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
+                .addComponent(btnLupaPassword)
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
@@ -304,9 +304,9 @@ public class formLoginManual extends javax.swing.JFrame {
 
     }//GEN-LAST:event_hidePassMouseClicked
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+    private void btnLupaPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLupaPasswordMouseClicked
         JOptionPane.showMessageDialog(this, "Silahkan hubungi owner");
-    }//GEN-LAST:event_jLabel1MouseClicked
+    }//GEN-LAST:event_btnLupaPasswordMouseClicked
      private String tentukanStatusPresensi(LocalTime waktuReal) {
         LocalTime waktuSekarang = LocalTime.now();
         System.out.println("Waktu Sekarang: " + waktuSekarang);
@@ -443,8 +443,8 @@ public class formLoginManual extends javax.swing.JFrame {
     private javax.swing.JLabel bgUtama;
     private javax.swing.JLabel btnFormRFID;
     private javax.swing.JLabel btnLogin;
+    private javax.swing.JLabel btnLupaPassword;
     private javax.swing.JLabel hidePass;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

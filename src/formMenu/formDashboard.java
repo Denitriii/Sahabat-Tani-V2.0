@@ -115,6 +115,7 @@ btnAnalisis.addActionListener(e -> {
         tblProduk = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
 
+        setPreferredSize(new java.awt.Dimension(1219, 729));
         setLayout(new java.awt.CardLayout());
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
@@ -139,7 +140,7 @@ btnAnalisis.addActionListener(e -> {
                 .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(lblAngkaPenjualan))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
         roundedPanel1Layout.setVerticalGroup(
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,7 +193,7 @@ btnAnalisis.addActionListener(e -> {
         pnDiagram.setLayout(pnDiagramLayout);
         pnDiagramLayout.setHorizontalGroup(
             pnDiagramLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 868, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         pnDiagramLayout.setVerticalGroup(
             pnDiagramLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,7 +340,7 @@ btnAnalisis.addActionListener(e -> {
                             .addComponent(pnChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(35, 35, 35)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(roundedPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                            .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(roundedPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );

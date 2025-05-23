@@ -4,6 +4,7 @@
  */
 package Menu;
 
+import formMenu.StokPupuk;
 import formMenu.formDashboard;
 import formMenu.formBarang;
 import java.awt.Color;
@@ -609,7 +610,7 @@ private JPanel selectedKlik = null;
         selectedKlik = pnKlik5;
 
         pnKonten.removeAll();
-        pnKonten.add(new formBarang());
+        pnKonten.add(new StokPupuk());
         pnKonten.repaint();
         pnKonten.revalidate();
     }//GEN-LAST:event_btnLaporanMouseClicked
