@@ -26,7 +26,7 @@ private Connection conn;
     public static List<Pupuk> getAllPupuk() {
         
         List<Pupuk> pupukList = new ArrayList<>();
-        String sql = "SELECT id_pupuk, nama_pupuk, harga_jual, stock, tgl_expired, id_gambar FROM pupuk";
+        String sql = "SELECT id_pupuk, nama_pupuk, harga_jual, stock, tgl_expired, id_gambar,harga_eceran, tipe_pembelian, stock_eceran FROM pupuk";
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
 
         try {
@@ -43,11 +43,15 @@ private Connection conn;
             int hargaJual = rs.getInt("harga_jual");
             int stock = rs.getInt("stock");
             byte[] idGambar = rs.getBytes("id_gambar"); // Ambil gambar sebagai byte[]
+            int hargaEcer = rs.getInt("harga_eceran");
+            int tipePembelian = rs.getInt("tipe_pembelian");
+            double stokEcer = rs.getDouble("stock_eceran");
+
 
             
 
             // Tambahkan ke daftar objek pupuk
-            pupukList.add(new Pupuk(idPupuk, namaPupuk, hargaJual, stock, formattedDate, idGambar));
+            pupukList.add(new Pupuk(idPupuk, namaPupuk, hargaJual, stock, formattedDate, idGambar,hargaEcer,tipePembelian,stokEcer ));
 
         }
             conn.close();
@@ -142,7 +146,7 @@ public static void updatePupuk(Pupuk pupuk) {
     // Ambil data pupuk berdasarkan ID
     public static Pupuk getPupukById(String idPupuk) {
         Connection conn = koneksiDB.BukaKoneksi();
-        String query = "SELECT id_pupuk, nama_pupuk, harga_jual, stock, tgl_expired, id_gambar FROM pupuk WHERE id_pupuk = ?";
+        String query = "SELECT id_pupuk, nama_pupuk, harga_jual, stock, tgl_expired, id_gambar, harga_eceran, tipe_pembelian, stock_eceran FROM pupuk WHERE id_pupuk = ?";
         Pupuk pupuk = null;
 
         try {
@@ -157,8 +161,10 @@ public static void updatePupuk(Pupuk pupuk) {
                     rs.getInt("harga_jual"),
                     rs.getInt("stock"),
                     rs.getString("tgl_expired"), // Ambil tanggal expired
-                    rs.getBytes("id_gambar")
-                 
+                    rs.getBytes("id_gambar"),
+                    rs.getInt("harga_eceran"),
+                    rs.getInt("tipe_pembelian"),
+                    rs.getDouble("stock_eceran")
                 );
             }
 

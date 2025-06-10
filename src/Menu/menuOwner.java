@@ -4,7 +4,9 @@
  */
 package Menu;
 
+
 import formMenu.StokPupuk;
+import formMenu.absensiKasir;
 import formMenu.formDashboard;
 import formMenu.formBarang;
 import java.awt.Color;
@@ -21,7 +23,9 @@ import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import kasir.manajemenakun.ManajemenAkun;
 import koneksi.koneksiDB;
+import report.Penjualan;
 
 /**
  *
@@ -64,10 +68,6 @@ private JPanel selectedKlik = null;
         jLabel3 = new javax.swing.JLabel();
         btnDashboard = new javax.swing.JLabel();
         pnKlik7 = new javax.swing.JPanel();
-        pnTransaksi = new customComponen.RoundedPanel();
-        jLabel4 = new javax.swing.JLabel();
-        btnTransaki = new javax.swing.JLabel();
-        pnKlik6 = new javax.swing.JPanel();
         pnBarang = new customComponen.RoundedPanel();
         jLabel5 = new javax.swing.JLabel();
         btnBarang = new javax.swing.JLabel();
@@ -82,6 +82,14 @@ private JPanel selectedKlik = null;
         pnKlik4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        pnKartuStok = new customComponen.RoundedPanel();
+        jLabel9 = new javax.swing.JLabel();
+        btnKartuStok = new javax.swing.JLabel();
+        pnKlik8 = new javax.swing.JPanel();
+        pnAbsensi = new customComponen.RoundedPanel();
+        jLabel10 = new javax.swing.JLabel();
+        btnAbsensi = new javax.swing.JLabel();
+        pnKlik9 = new javax.swing.JPanel();
         pn_kanan = new javax.swing.JPanel();
         pnBaratas = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -172,65 +180,6 @@ private JPanel selectedKlik = null;
 
         roundedPanel1.add(pnDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(-3, 127, 230, 60));
 
-        pnTransaksi.setBackground(new java.awt.Color(70, 155, 126));
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/orders icon.png"))); // NOI18N
-
-        btnTransaki.setBackground(new java.awt.Color(255, 255, 255));
-        btnTransaki.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        btnTransaki.setForeground(new java.awt.Color(255, 255, 255));
-        btnTransaki.setText("Transaksi");
-        btnTransaki.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnTransakiMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnTransakiMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnTransakiMouseExited(evt);
-            }
-        });
-
-        pnKlik6.setBackground(new java.awt.Color(70, 155, 126));
-
-        javax.swing.GroupLayout pnKlik6Layout = new javax.swing.GroupLayout(pnKlik6);
-        pnKlik6.setLayout(pnKlik6Layout);
-        pnKlik6Layout.setHorizontalGroup(
-            pnKlik6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 9, Short.MAX_VALUE)
-        );
-        pnKlik6Layout.setVerticalGroup(
-            pnKlik6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout pnTransaksiLayout = new javax.swing.GroupLayout(pnTransaksi);
-        pnTransaksi.setLayout(pnTransaksiLayout);
-        pnTransaksiLayout.setHorizontalGroup(
-            pnTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnTransaksiLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnKlik6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnTransaki, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        pnTransaksiLayout.setVerticalGroup(
-            pnTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnTransaksiLayout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
-                .addGroup(pnTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTransaki, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnKlik6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(10, 10, 10))
-        );
-
-        roundedPanel1.add(pnTransaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 220, 60));
-
         pnBarang.setBackground(new java.awt.Color(70, 155, 126));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/inventory icon.png"))); // NOI18N
@@ -273,8 +222,8 @@ private JPanel selectedKlik = null;
                 .addComponent(pnKlik3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(btnBarang, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         pnBarangLayout.setVerticalGroup(
@@ -288,7 +237,7 @@ private JPanel selectedKlik = null;
                 .addGap(10, 10, 10))
         );
 
-        roundedPanel1.add(pnBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 220, 60));
+        roundedPanel1.add(pnBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 220, 60));
 
         pnLaporan.setBackground(new java.awt.Color(70, 155, 126));
 
@@ -348,7 +297,7 @@ private JPanel selectedKlik = null;
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        roundedPanel1.add(pnLaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 220, 70));
+        roundedPanel1.add(pnLaporan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 220, 70));
 
         pnAkun.setBackground(new java.awt.Color(70, 155, 126));
 
@@ -410,7 +359,7 @@ private JPanel selectedKlik = null;
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        roundedPanel1.add(pnAkun, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 220, -1));
+        roundedPanel1.add(pnAkun, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 220, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logout.png"))); // NOI18N
         roundedPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 730, -1, -1));
@@ -424,6 +373,130 @@ private JPanel selectedKlik = null;
             }
         });
         roundedPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 730, 140, 50));
+
+        pnKartuStok.setBackground(new java.awt.Color(70, 155, 126));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/resport icon.png"))); // NOI18N
+
+        btnKartuStok.setBackground(new java.awt.Color(255, 255, 255));
+        btnKartuStok.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        btnKartuStok.setForeground(new java.awt.Color(255, 255, 255));
+        btnKartuStok.setText("Kartu stok");
+        btnKartuStok.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnKartuStokMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnKartuStokMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnKartuStokMouseExited(evt);
+            }
+        });
+
+        pnKlik8.setBackground(new java.awt.Color(70, 155, 126));
+
+        javax.swing.GroupLayout pnKlik8Layout = new javax.swing.GroupLayout(pnKlik8);
+        pnKlik8.setLayout(pnKlik8Layout);
+        pnKlik8Layout.setHorizontalGroup(
+            pnKlik8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 9, Short.MAX_VALUE)
+        );
+        pnKlik8Layout.setVerticalGroup(
+            pnKlik8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout pnKartuStokLayout = new javax.swing.GroupLayout(pnKartuStok);
+        pnKartuStok.setLayout(pnKartuStokLayout);
+        pnKartuStokLayout.setHorizontalGroup(
+            pnKartuStokLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnKartuStokLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnKlik8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnKartuStok, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        pnKartuStokLayout.setVerticalGroup(
+            pnKartuStokLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnKartuStokLayout.createSequentialGroup()
+                .addContainerGap(9, Short.MAX_VALUE)
+                .addGroup(pnKartuStokLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnKlik8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnKartuStokLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnKartuStok, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        roundedPanel1.add(pnKartuStok, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 220, 70));
+
+        pnAbsensi.setBackground(new java.awt.Color(70, 155, 126));
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/account icon.png"))); // NOI18N
+
+        btnAbsensi.setBackground(new java.awt.Color(255, 255, 255));
+        btnAbsensi.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        btnAbsensi.setForeground(new java.awt.Color(255, 255, 255));
+        btnAbsensi.setText("Absensi Kasir");
+        btnAbsensi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAbsensiMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAbsensiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAbsensiMouseExited(evt);
+            }
+        });
+
+        pnKlik9.setBackground(new java.awt.Color(70, 155, 126));
+
+        javax.swing.GroupLayout pnKlik9Layout = new javax.swing.GroupLayout(pnKlik9);
+        pnKlik9.setLayout(pnKlik9Layout);
+        pnKlik9Layout.setHorizontalGroup(
+            pnKlik9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 9, Short.MAX_VALUE)
+        );
+        pnKlik9Layout.setVerticalGroup(
+            pnKlik9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout pnAbsensiLayout = new javax.swing.GroupLayout(pnAbsensi);
+        pnAbsensi.setLayout(pnAbsensiLayout);
+        pnAbsensiLayout.setHorizontalGroup(
+            pnAbsensiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnAbsensiLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnKlik9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAbsensi, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        pnAbsensiLayout.setVerticalGroup(
+            pnAbsensiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnAbsensiLayout.createSequentialGroup()
+                .addContainerGap(10, Short.MAX_VALUE)
+                .addGroup(pnAbsensiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnKlik9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnAbsensiLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAbsensi, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        roundedPanel1.add(pnAbsensi, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 220, -1));
 
         javax.swing.GroupLayout pnKiriLayout = new javax.swing.GroupLayout(pnKiri);
         pnKiri.setLayout(pnKiriLayout);
@@ -563,39 +636,6 @@ private JPanel selectedKlik = null;
     }
     }//GEN-LAST:event_btnDashboardMouseExited
 
-    private void btnTransakiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTransakiMouseClicked
-        if (selectedPanel != null && selectedPanel != pnTransaksi) {
-    selectedPanel.setBackground(new Color(70,155,126));
-    
-    }
-        if (selectedKlik != null && selectedKlik != pnKlik6) {
-            selectedKlik.setBackground(new Color(70,155,126)); // Warna default
-        }
-    // Set panel aktif
-    pnKlik6.setBackground(new Color(217,217,217));
-    pnTransaksi.setBackground(new Color(50, 85, 75));
-    selectedPanel = pnTransaksi; 
-    selectedKlik = pnKlik6;
-
-    // Panggil panel laporan harian
-    pnKonten.removeAll();
-    pnKonten.add(new formBarang());
-    pnKonten.repaint();
-    pnKonten.revalidate();
-    }//GEN-LAST:event_btnTransakiMouseClicked
-
-    private void btnTransakiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTransakiMouseEntered
-        pnTransaksi.setBackground(new Color(50, 85, 75));
-        pnKlik6.setBackground(new Color(217,217,217));
-    }//GEN-LAST:event_btnTransakiMouseEntered
-
-    private void btnTransakiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTransakiMouseExited
-         if (selectedPanel != pnTransaksi) {
-        pnTransaksi.setBackground(new Color(70,155,126));
-        pnKlik6.setBackground(new Color(70,155,126));
-        }
-    }//GEN-LAST:event_btnTransakiMouseExited
-
     private void btnLaporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLaporanMouseClicked
          if (selectedPanel != null && selectedPanel != pnLaporan ) {
             selectedPanel.setBackground(new Color(70,155,126));
@@ -610,13 +650,14 @@ private JPanel selectedKlik = null;
         selectedKlik = pnKlik5;
 
         pnKonten.removeAll();
-        pnKonten.add(new StokPupuk());
+        pnKonten.add(new Penjualan());
         pnKonten.repaint();
         pnKonten.revalidate();
     }//GEN-LAST:event_btnLaporanMouseClicked
 
     private void btnLaporanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLaporanMouseEntered
          pnLaporan.setBackground(new Color(50, 85, 75));
+         pnKlik5.setBackground(new Color(217,217,217));
     }//GEN-LAST:event_btnLaporanMouseEntered
 
     private void btnLaporanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLaporanMouseExited
@@ -640,7 +681,7 @@ private JPanel selectedKlik = null;
         selectedKlik = pnKlik4;
 
         pnKonten.removeAll();
-        pnKonten.add(new formBarang());
+        pnKonten.add(new ManajemenAkun());
         pnKonten.repaint();
         pnKonten.revalidate();
     }//GEN-LAST:event_btnAkunMouseClicked
@@ -695,6 +736,69 @@ private JPanel selectedKlik = null;
             logout.setVisible(true);
     }//GEN-LAST:event_jLabel8MouseClicked
 
+    private void btnKartuStokMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKartuStokMouseClicked
+        if (selectedPanel != null && selectedPanel != pnKartuStok ) {
+            selectedPanel.setBackground(new Color(70,155,126));
+            
+        }
+         if (selectedKlik != null && selectedKlik != pnKlik8) {
+            selectedKlik.setBackground(new Color(70,155,126)); // Warna default
+        }
+        pnKlik8.setBackground(new Color(217,217,217));
+        pnKartuStok.setBackground(new Color(50, 85, 75));
+        selectedPanel = pnKartuStok;
+        selectedKlik = pnKlik8;
+
+        pnKonten.removeAll();
+        pnKonten.add(new StokPupuk());
+        pnKonten.repaint();
+        pnKonten.revalidate();
+    }//GEN-LAST:event_btnKartuStokMouseClicked
+
+    private void btnKartuStokMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKartuStokMouseEntered
+       pnKartuStok.setBackground(new Color(50, 85, 75));
+        pnKlik8.setBackground(new Color(217,217,217));
+
+    }//GEN-LAST:event_btnKartuStokMouseEntered
+
+    private void btnKartuStokMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKartuStokMouseExited
+        if (selectedPanel != pnKartuStok) {
+             pnAkun.setBackground(new Color(70,155,126));
+            pnKlik4.setBackground(new Color(70,155,126));
+        }
+    }//GEN-LAST:event_btnKartuStokMouseExited
+
+    private void btnAbsensiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAbsensiMouseClicked
+        if (selectedPanel != null && selectedPanel != pnAbsensi ) {
+            selectedPanel.setBackground(new Color(70,155,126));
+            
+        }
+         if (selectedKlik != null && selectedKlik != pnKlik9) {
+            selectedKlik.setBackground(new Color(70,155,126)); // Warna default
+        }
+        pnKlik9.setBackground(new Color(217,217,217));
+        pnAbsensi.setBackground(new Color(50, 85, 75));
+        selectedPanel = pnAbsensi;
+        selectedKlik = pnKlik9;
+
+        pnKonten.removeAll();
+        pnKonten.add(new absensiKasir());
+        pnKonten.repaint();
+        pnKonten.revalidate();
+    }//GEN-LAST:event_btnAbsensiMouseClicked
+
+    private void btnAbsensiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAbsensiMouseEntered
+        pnAbsensi.setBackground(new Color(50, 85, 75));
+        pnKlik9.setBackground(new Color(217,217,217));
+    }//GEN-LAST:event_btnAbsensiMouseEntered
+
+    private void btnAbsensiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAbsensiMouseExited
+        if (selectedPanel != pnAbsensi) {
+             pnAkun.setBackground(new Color(70,155,126));
+            pnKlik9.setBackground(new Color(70,155,126));
+        }
+    }//GEN-LAST:event_btnAbsensiMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -738,37 +842,41 @@ private JPanel selectedKlik = null;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnAbsensi;
     private javax.swing.JLabel btnAkun;
     private javax.swing.JLabel btnBarang;
     private javax.swing.JLabel btnDashboard;
+    private javax.swing.JLabel btnKartuStok;
     private javax.swing.JLabel btnLaporan;
     private javax.swing.JLabel btnNotif;
-    private javax.swing.JLabel btnTransaki;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbNama;
     private javax.swing.JLabel lbRole;
+    private customComponen.RoundedPanel pnAbsensi;
     private customComponen.RoundedPanel pnAkun;
     private customComponen.RoundedPanel pnBarang;
     private javax.swing.JPanel pnBaratas;
     private customComponen.RoundedPanel pnDashboard;
+    private customComponen.RoundedPanel pnKartuStok;
     private javax.swing.JPanel pnKiri;
     private javax.swing.JPanel pnKlik3;
     private javax.swing.JPanel pnKlik4;
     private javax.swing.JPanel pnKlik5;
-    private javax.swing.JPanel pnKlik6;
     private javax.swing.JPanel pnKlik7;
+    private javax.swing.JPanel pnKlik8;
+    private javax.swing.JPanel pnKlik9;
     private javax.swing.JPanel pnKonten;
     private customComponen.RoundedPanel pnLaporan;
-    private customComponen.RoundedPanel pnTransaksi;
     private javax.swing.JPanel pn_kanan;
     private customComponen.RoundedPanel roundedPanel1;
     private customComponen.RoundedPanel roundedPanel2;
@@ -788,15 +896,18 @@ private void tampilkanNotifikasi() {
             notif.append("Stok menipis: ").append(nama).append(" (").append(stok).append(" sak)\n");
         }
 
-        // Cek produk kadaluarsa (opsional)
-        String sqlExp = "SELECT nama_pupuk, tgl_expired FROM pupuk WHERE tgl_expired <= CURDATE()";
+        
+        
+
+        // Cek produk kadaluarsa hari ini atau dalam 7 hari ke depan
+        String sqlExp = "SELECT nama_pupuk, tgl_expired FROM pupuk WHERE tgl_expired <= CURDATE() + INTERVAL 7 DAY";
         PreparedStatement stExp = conn.prepareStatement(sqlExp);
         ResultSet rsExp = stExp.executeQuery();
 
         while (rsExp.next()) {
             String nama = rsExp.getString("nama_pupuk");
             String tgl = rsExp.getString("tgl_expired");
-            notif.append("Kadaluarsa: ").append(nama).append(" (").append(tgl).append(")\n"); 
+            notif.append("Kadaluarsa (≤ 7 hari): ").append(nama).append(" (").append(tgl).append(")\n"); 
         }
 
         if (notif.length() == 0) {

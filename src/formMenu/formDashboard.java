@@ -90,6 +90,7 @@ btnAnalisis.addActionListener(e -> {
         roundedPanel1 = new customComponen.RoundedPanel();
         jLabel1 = new javax.swing.JLabel();
         lblAngkaPenjualan = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         pnChart = new customComponen.RoundedPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -128,28 +129,34 @@ btnAnalisis.addActionListener(e -> {
         jLabel1.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
         jLabel1.setText("Penjualan");
 
-        lblAngkaPenjualan.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        lblAngkaPenjualan.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblAngkaPenjualan.setText("999999");
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/net icon.png"))); // NOI18N
 
         javax.swing.GroupLayout roundedPanel1Layout = new javax.swing.GroupLayout(roundedPanel1);
         roundedPanel1.setLayout(roundedPanel1Layout);
         roundedPanel1Layout.setHorizontalGroup(
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel1Layout.createSequentialGroup()
-                .addGap(66, 66, 66)
+                .addGap(11, 11, 11)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(lblAngkaPenjualan))
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
         roundedPanel1Layout.setVerticalGroup(
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel10))
+                .addGap(18, 18, 18)
                 .addComponent(lblAngkaPenjualan)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pnChart.setBackground(new java.awt.Color(255, 255, 255));
@@ -230,9 +237,9 @@ btnAnalisis.addActionListener(e -> {
         jLabel2.setText("Rata Rata Transaksi");
         roundedPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, 40));
 
-        lblNominalTransaksi.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        lblNominalTransaksi.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblNominalTransaksi.setText("999999");
-        roundedPanel3.add(lblNominalTransaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 73, -1, -1));
+        roundedPanel3.add(lblNominalTransaksi, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, -1, -1));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/avg icon.png"))); // NOI18N
         roundedPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
@@ -246,9 +253,9 @@ btnAnalisis.addActionListener(e -> {
         jLabel3.setText("Pengeluaran");
         roundedPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(69, 18, -1, 30));
 
-        lblJumPengeluaran.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        lblJumPengeluaran.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblJumPengeluaran.setText("999999");
-        roundedPanel4.add(lblJumPengeluaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(78, 81, -1, -1));
+        roundedPanel4.add(lblJumPengeluaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logo pengeluaran.png"))); // NOI18N
         jLabel8.setToolTipText("");
@@ -263,9 +270,9 @@ btnAnalisis.addActionListener(e -> {
         jLabel4.setText("Pendapatan");
         roundedPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, 40));
 
-        lblJumPendapatan.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        lblJumPendapatan.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
         lblJumPendapatan.setText("999999");
-        roundedPanel2.add(lblJumPendapatan, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 74, -1, -1));
+        roundedPanel2.add(lblJumPendapatan, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/net icon.png"))); // NOI18N
         roundedPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
@@ -332,16 +339,17 @@ btnAnalisis.addActionListener(e -> {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(roundedPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
-                                .addGap(28, 28, 28)
+                                .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(34, 34, 34)
                                 .addComponent(roundedPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)
                                 .addComponent(roundedPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE))
                             .addComponent(pnChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(35, 35, 35)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(roundedPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(roundedPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -649,6 +657,7 @@ private double getNominalRestock(int bulan,int tahun){
     private com.toedter.calendar.JYearChooser cbTahun;
     private com.toedter.calendar.JDateChooser dtAnalisis;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

@@ -18,34 +18,32 @@ public class Pupuk {
     private String nama;
     private int beratSak;
     private int hargaJual;
-    private double hargaEceran;
+    private int hargaEceran;
     private int stock;
-    private double stockEceran;
-    private String idSuplier;
-    private int tipePembelian;
+   
+    
+    private double stokEcer;
     private String tglExpired; // Tambahkan atribut tanggal expired
     private String barcode;
     private byte[] idGambar;
+    private int jenisPenjualan;
     
 
     // Constructor
-    public Pupuk(String idPupuk, String nama, int hargaJual, int stock, String tglExpired, byte[] idGambar) {
+    public Pupuk(String idPupuk, String nama, int hargaJual, int stock, String tglExpired, byte[] idGambar,int hargaEcer,int jenisPenjualan, double stokEcer) {
     this.idPupuk = idPupuk;
     this.nama = nama;
     this.hargaJual = hargaJual;
     this.stock = stock;
     this.tglExpired = tglExpired;
     this.idGambar = idGambar;
+    this.hargaEceran = hargaEcer;
+    this.jenisPenjualan = jenisPenjualan;
+    this.stokEcer = stokEcer;
     //this.idSuplier = idSuplier;
 }
 
-    // Getter dan Setter untuk tglExpired
-//    public String getIdSuplier(){
-//        return idSuplier;
-//    }
-//    public void setIdSuplier(String idSuplier){
-//        this.idSuplier= idSuplier;
-//    }
+
     public String getTglExpired() {
         return tglExpired;
     }
@@ -101,5 +99,26 @@ public class Pupuk {
     }
     public String getId(){
         return idPupuk;
+    }
+    public void setHargaEcer(int hargaEcer){
+        this.hargaEceran = hargaEcer;
+    }
+    public int getHargaEcer(){
+        return hargaEceran;
+    }
+    public void setTipePenjualan(int tipePenjualan){
+        this.jenisPenjualan = tipePenjualan;
+    }
+    public int getTipePenujualan(){
+        return jenisPenjualan;
+    }
+    public boolean isDijualEcer() {
+    return jenisPenjualan == 1;
+}
+    public void setStokEcer(double stokEcer){
+       this.stokEcer = stokEcer;
+    }
+    public double getStokEcer(){
+        return stokEcer;
     }
 }

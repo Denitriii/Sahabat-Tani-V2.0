@@ -35,8 +35,8 @@ private JPanel selectedKlik = null;
         lbRole.setText(sessionRole.getRolePengguna());
         String[] data = getStatusAbsensiHariIni(SessionManager.getIdUser());
 
-       // lblJam.setText("Absensi Masuk: " + data[0]);
-        //status.setText("Status: " + data[1]);
+        lbJam.setText("Absensi Masuk: " + data[0]);
+        lbStatus.setText("Status: " + data[1]);
         LocalDate hariIni = LocalDate.now();
         //lblTanggal.setText("tanggal"+hariIni);
         
@@ -65,6 +65,8 @@ private JPanel selectedKlik = null;
         roundedPanel2 = new customComponen.RoundedPanel();
         lbNama = new javax.swing.JLabel();
         lbRole = new javax.swing.JLabel();
+        lbJam = new javax.swing.JLabel();
+        lbStatus = new javax.swing.JLabel();
         pnKonten = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -195,20 +197,36 @@ private JPanel selectedKlik = null;
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
+        lbJam.setText("jLabel2");
+
+        lbStatus.setText("jLabel2");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(997, Short.MAX_VALUE)
-                .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbJam, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(801, 801, 801)
+                        .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(lbJam)
+                        .addGap(14, 14, 14)
+                        .addComponent(lbStatus)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -363,8 +381,10 @@ private JPanel selectedKlik = null;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lbJam;
     private javax.swing.JLabel lbNama;
     private javax.swing.JLabel lbRole;
+    private javax.swing.JLabel lbStatus;
     private javax.swing.JPanel pnBaratas;
     private javax.swing.JPanel pnKiri;
     private javax.swing.JPanel pnKlik6;

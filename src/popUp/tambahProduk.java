@@ -21,6 +21,8 @@ import koneksi.koneksiDB;
 import java.sql.*;
 import javax.swing.Icon;
 import java.sql.Connection;
+import koneksi.SessionManager;
+import formMenu.formBarang;
 
 /**
  *
@@ -31,12 +33,13 @@ public class tambahProduk extends javax.swing.JDialog {
     /**
      * Creates new form tambahProduk
      */
+   private Connection conn;
+   public tambahProduk(java.awt.Frame parent, boolean modal) {
+    super(parent, modal);
+    initComponents();
+    this.conn = koneksiDB.BukaKoneksi();
+}
     
-    public tambahProduk(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -421,12 +424,11 @@ public class tambahProduk extends javax.swing.JDialog {
     }//GEN-LAST:event_btnUploadActionPerformed
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        try {
-          // Ambil gambar dari label jika ada
+    try {
+        // Ambil gambar dari label jika ada
         byte[] imageData = null;
         Icon icon = lbFoto.getIcon();
-        
-        if (icon != null) { // Jika ada gambar, konversi ke byte array
+        if (icon != null) {
             BufferedImage bi = new BufferedImage(142, 172, BufferedImage.TYPE_INT_RGB);
             Graphics2D g2 = bi.createGraphics();
             icon.paintIcon(null, g2, 0, 0);
@@ -437,18 +439,17 @@ public class tambahProduk extends javax.swing.JDialog {
             imageData = bos.toByteArray();
         }
 
-        
-
-
         // Ambil data dari form
         String nama = txtNamaPupuk.getText().trim();
+        PreparedStatement cekNama = conn.prepareStatement("SELECT COUNT(*) FROM pupuk WHERE nama_pupuk = ?");
+        cekNama.setString(1, nama);
+        ResultSet rs = cekNama.executeQuery();
+        if (rs.next() && rs.getInt(1) > 0) {
+            JOptionPane.showMessageDialog(this, "Nama pupuk \"" + nama + "\" sudah terdaftar!", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         String barcode = txtBarcode.getText().trim();
         SimpleDateFormat tgl = new SimpleDateFormat("yyyy-MM-dd");
-        int berat = (int) spBerat.getValue();
-        int stock = (int) spStok.getValue();
-        int hargaJual = Integer.parseInt(txtHargaJual.getText());
-        int hargaEcer = Integer.parseInt(txtHargaEcer.getText());
-        int hargaBeli = Integer.parseInt(txtRestock.getText());
         String tipe = cbTipePenjualan.getSelectedItem().toString();
         String kategori = cbKategori.getSelectedItem().toString();
         String namaSuplier = txtNamaSuplier.getText().trim();
@@ -456,91 +457,136 @@ public class tambahProduk extends javax.swing.JDialog {
         String kontakSuplier = txtKontakSuplier.getText().trim();
         String tanggal = tgl.format(dcTanggalExp.getDate());
 
+        int berat = (int) spBerat.getValue();
+        int stock = (int) spStok.getValue();
+        
+        int hargaJual, hargaEcer = 0, hargaBeli;
+
+        try {
+            hargaJual = Integer.parseInt(txtHargaJual.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Harga jual harus berupa angka!", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            hargaBeli = Integer.parseInt(txtRestock.getText().trim());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Harga beli harus berupa angka!", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        boolean tipePenjualanValue = true;
+        if (tipe.equals("Ecer dan karungan")) {
+            String inputEcer = txtHargaEcer.getText().trim();
+            if (inputEcer.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Harga eceran harus diisi!", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            try {
+                hargaEcer = Integer.parseInt(inputEcer);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Harga eceran harus berupa angka!", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            tipePenjualanValue = true;
+        } else if (tipe.equals("Karungan")) {
+            tipePenjualanValue = false;
+            hargaEcer = 0; // Tetapkan ke 0
+        }
+
+        // Validasi umum
+        if (stock <= 0 || hargaJual <= 0 || nama.isEmpty() || namaSuplier.isEmpty() || berat <= 0 || hargaBeli <= 0) {
+            JOptionPane.showMessageDialog(this, "Semua field harus diisi dengan benar!", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        double totalHarga = stock * hargaBeli;
+        
+        // Cek jika hanya nama yang diisi
+if (!nama.isEmpty() &&
+    barcode.isEmpty() &&
+    txtHargaJual.getText().trim().isEmpty() &&
+    txtRestock.getText().trim().isEmpty() &&
+    dcTanggalExp.getDate() == null &&
+    namaSuplier.isEmpty() &&
+    alamatSuplier.isEmpty() &&
+    kontakSuplier.isEmpty()) {
+
+    JOptionPane.showMessageDialog(this, "Field lain selain nama belum diisi!", "Input Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
         // Buat ID unik
         String idRestock = "RS-" + UUID.randomUUID().toString().substring(0, 6);
         String idSuplier = "SP-" + UUID.randomUUID().toString().substring(0, 6);
         String idPupuk = (kategori.equals("Non-Subsidi")) ? "NS-" + UUID.randomUUID().toString().substring(0, 6)
                                                            : "SB-" + UUID.randomUUID().toString().substring(0, 6);
 
-        // Validasi input
-        if (stock <= 0 || hargaJual <= 0 || nama.isEmpty() || namaSuplier.isEmpty() || berat <= 0 || hargaBeli <= 0) {
-            JOptionPane.showMessageDialog(this, "Semua field harus diisi dengan benar!", "Input Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        } 
-
-        boolean tipePenjualanValue = true;
-        if (tipe.equals("Ecer dan karungan")) {
-            tipePenjualanValue = true;
-            if (hargaEcer <= 0) {
-                JOptionPane.showMessageDialog(this, "Harga eceran harus diisi!", "Input Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        } else if (tipe.equals("Karungan")) {
-            tipePenjualanValue = false;
-            hargaEcer = 0;
-        }
-
-        double totalHarga = stock * hargaBeli;
-
         // Mulai transaksi database
-        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_kasirpupuk", "root", "");
-        conn.setAutoCommit(false);
+//        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_kasirpupuk", "root", "");
+//        conn.setAutoCommit(false);
 
-        String sqlPupuk = "INSERT INTO pupuk (id_pupuk, nama_pupuk, harga_jual, stock, berat_sak, harga_eceran, id_suplier, tipe_pembelian, tgl_expired, barcode, id_gambar, kategori) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sqlPupuk = "INSERT INTO pupuk (id_pupuk, nama_pupuk, harga_jual, stock, berat_sak, harga_eceran, tipe_pembelian, tgl_expired, barcode, id_gambar, kategori) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         String sqlSuplier = "INSERT INTO suplier (id_suplier, nama_suplier, alamat, kontak) VALUES (?, ?, ?, ?)";
-        String restockSql = "INSERT INTO restock (id_restock, id_pupuk, restock_qty, harga_beli, total_harga, id_suplier, tanggal_restock) VALUES (?, ?, ?, ?, ?, ?, NOW())";
+        String restockSql = "INSERT INTO restock (id_restock,  total_harga, id_suplier, tanggal_restock, id_user) VALUES (?, ?, ?, NOW(), ?)";
+        String detailRestok = "INSERT INTO restock_detail(id_restock, id_pupuk, restock_qty, harga_beli) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement pstSuplier = conn.prepareStatement(sqlSuplier);
              PreparedStatement pstPupuk = conn.prepareStatement(sqlPupuk);
-             PreparedStatement pstRestock = conn.prepareStatement(restockSql)) {
+             PreparedStatement pstRestock = conn.prepareStatement(restockSql);
+             PreparedStatement pstDetailRestok = conn.prepareStatement(detailRestok)) {
 
-            // Simpan data ke tabel suplier
+            // Simpan data suplier
             pstSuplier.setString(1, idSuplier);
             pstSuplier.setString(2, namaSuplier);
             pstSuplier.setString(3, alamatSuplier);
             pstSuplier.setString(4, kontakSuplier);
             pstSuplier.executeUpdate();
 
-            // Simpan data ke tabel pupuk
+            // Simpan data pupuk
             pstPupuk.setString(1, idPupuk);
             pstPupuk.setString(2, nama);
             pstPupuk.setInt(3, hargaJual);
             pstPupuk.setInt(4, stock);
             pstPupuk.setInt(5, berat);
             pstPupuk.setInt(6, hargaEcer);
-            pstPupuk.setString(7, idSuplier);
-            pstPupuk.setBoolean(8, tipePenjualanValue); // Sesuaikan dengan tipe BOOLEAN atau TINYINT(1)
-            pstPupuk.setString(9, tanggal);
-            pstPupuk.setString(10, barcode);
+            pstPupuk.setBoolean(7, tipePenjualanValue);
+            pstPupuk.setString(8, tanggal);
+            pstPupuk.setString(9, barcode);
             if (imageData != null) {
-                pstPupuk.setBytes(11, imageData); // Jika ada gambar
+                pstPupuk.setBytes(10, imageData);
             } else {
-                pstPupuk.setNull(11, Types.BLOB); // Jika tidak ada gambar
+                pstPupuk.setNull(10, Types.BLOB);
             }
-            pstPupuk.setString(12, kategori);
+            pstPupuk.setString(11, kategori);
             pstPupuk.executeUpdate();
 
-            // Simpan data ke tabel restock
+            // Simpan data restock
             pstRestock.setString(1, idRestock);
-            pstRestock.setString(2, idPupuk);
-            pstRestock.setInt(3, stock);
-            pstRestock.setInt(4, hargaBeli);
-            pstRestock.setDouble(5, totalHarga);
-            pstRestock.setString(6, idSuplier);
+            pstRestock.setDouble(2, totalHarga);
+            pstRestock.setString(3, idSuplier);
+            pstRestock.setString(4, SessionManager.getIdUser());
             pstRestock.executeUpdate();
+
+            // Simpan detail restock
+            pstDetailRestok.setString(1, idRestock);
+            pstDetailRestok.setString(2, idPupuk);
+            pstDetailRestok.setInt(3, stock);
+            pstDetailRestok.setInt(4, hargaBeli);
+            pstDetailRestok.executeUpdate();
         }
 
-        // Commit transaksi
-        conn.commit();
-        JOptionPane.showMessageDialog(this, "Restock berhasil disimpan!");
-    } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(this, "Masukkan jumlah restock dan harga beli yang valid!", "Input Error", JOptionPane.ERROR_MESSAGE);
-        ex.printStackTrace();
+        
+        JOptionPane.showMessageDialog(this, "Barang berhasil di simpan !");
+        dispose();
+        
+
     } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(this, "Gagal menyimpan produk. Error database: "+ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Gagal menyimpan produk. Error database: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
         ex.printStackTrace();
     } catch (Exception ex) {
-        JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menyimpan produk!"+ex.getMessage(), "Input Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menyimpan produk! " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         ex.printStackTrace();
     }
     }//GEN-LAST:event_btnSimpanActionPerformed

@@ -11,6 +11,7 @@ package formMenu;
 import koneksi.koneksiDB;
 import java.sql.*;
 import javax.swing.table.DefaultTableModel;
+import report.Restock;
 public class StokPupuk extends javax.swing.JPanel {
 
     /**
@@ -21,7 +22,11 @@ public class StokPupuk extends javax.swing.JPanel {
         conn = koneksiDB.BukaKoneksi();
         initComponents();
         laodKartu();
-        
+        cbBulan.addPropertyChangeListener(evt -> {
+            if ("month".equals(evt.getPropertyName())) {
+                laodKartu();
+            }
+        });
     }
 
     /**
@@ -37,6 +42,9 @@ public class StokPupuk extends javax.swing.JPanel {
         roundedPanel1 = new formMenu.RoundedPanel();
         cbBulan = new com.toedter.calendar.JMonthChooser();
         cbTahun = new com.toedter.calendar.JYearChooser();
+        rSMaterialButtonRectangle1 = new rojerusan.RSMaterialButtonRectangle();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         roundedPanel2 = new formMenu.RoundedPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelKartuStok = new javax.swing.JTable();
@@ -45,28 +53,27 @@ public class StokPupuk extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
 
-        roundedPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        roundedPanel1.setBackground(new java.awt.Color(238, 238, 238));
+        roundedPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        roundedPanel1.add(cbBulan, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, 30));
+        roundedPanel1.add(cbTahun, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, -1, 30));
 
-        javax.swing.GroupLayout roundedPanel1Layout = new javax.swing.GroupLayout(roundedPanel1);
-        roundedPanel1.setLayout(roundedPanel1Layout);
-        roundedPanel1Layout.setHorizontalGroup(
-            roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cbBulan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
-                .addComponent(cbTahun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
-        );
-        roundedPanel1Layout.setVerticalGroup(
-            roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(roundedPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbTahun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbBulan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(104, Short.MAX_VALUE))
-        );
+        rSMaterialButtonRectangle1.setBackground(new java.awt.Color(255, 255, 255));
+        rSMaterialButtonRectangle1.setForeground(new java.awt.Color(46, 111, 64));
+        rSMaterialButtonRectangle1.setText("STOK OPNAME");
+        rSMaterialButtonRectangle1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rSMaterialButtonRectangle1MouseClicked(evt);
+            }
+        });
+        roundedPanel1.add(rSMaterialButtonRectangle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 133, 45));
+
+        jLabel1.setText("Lihat bedasarkan :");
+        roundedPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setText("Kartu Stok");
+        roundedPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
 
         roundedPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -95,17 +102,17 @@ public class StokPupuk extends javax.swing.JPanel {
         roundedPanel2.setLayout(roundedPanel2Layout);
         roundedPanel2Layout.setHorizontalGroup(
             roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(roundedPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1195, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel2Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jScrollPane1)
+                .addGap(17, 17, 17))
         );
         roundedPanel2Layout.setVerticalGroup(
             roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel2Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
+                .addGap(38, 38, 38))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -115,29 +122,41 @@ public class StokPupuk extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(roundedPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(roundedPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(roundedPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(roundedPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1207, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(roundedPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(roundedPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         add(jPanel1, "card2");
     }// </editor-fold>//GEN-END:initComponents
 
+    private void rSMaterialButtonRectangle1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rSMaterialButtonRectangle1MouseClicked
+        this.removeAll();
+        this.add(new OpnameStok());
+        this.repaint();
+        this.revalidate();
+    }//GEN-LAST:event_rSMaterialButtonRectangle1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JMonthChooser cbBulan;
     private com.toedter.calendar.JYearChooser cbTahun;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private rojerusan.RSMaterialButtonRectangle rSMaterialButtonRectangle1;
     private formMenu.RoundedPanel roundedPanel1;
     private formMenu.RoundedPanel roundedPanel2;
     private javax.swing.JTable tabelKartuStok;
@@ -154,7 +173,7 @@ public class StokPupuk extends javax.swing.JPanel {
         int bulan = cbBulan.getMonth()+1;
         int tahun = cbTahun.getYear();
         String sql = "SELECT *\n" +
-             "FROM stock_kartu\n" +  // <- HARUS ada spasi setelah nama tabel
+             "FROM view_laporan_kartu_stok\n" +  
              "WHERE MONTH(tanggal) = ? AND YEAR(tanggal) = ?\n" +
              "ORDER BY tanggal DESC";
 
@@ -166,7 +185,7 @@ public class StokPupuk extends javax.swing.JPanel {
             try(ResultSet rs = ps.executeQuery()) {
                 while(rs.next()){
                 String nama = rs.getString("nama_pupuk");
-                Date tanggal = rs.getDate("tanggal");
+                Timestamp tanggal = rs.getTimestamp("tanggal");
                 String jenisTransaksi = rs.getString("jenisTransaksi");
                 int masuk = rs.getInt("masuk");
                 int keluar = rs.getInt("keluar");

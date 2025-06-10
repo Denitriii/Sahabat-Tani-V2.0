@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="laporanbulan5" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="91ad4adc-599f-4f7b-8bb9-56f22727f92f">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_pupuk"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="bulanTransaksi" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tahun" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="bulan" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM view_laporan_penjualan_pupuk 
+WHERE tahun = $P{tahun} AND bulan = $P{bulan}]]>
+	</queryString>
+	<field name="id_pupuk" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="id_pupuk"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_pupuk"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pupuk"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama_pupuk" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_qty_terjual" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_penjualan" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="harga_jual" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="harga_jual"/>
+		<property name="com.jaspersoft.studio.field.label" value="harga_jual"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pupuk"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_modal" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="keuntungan_bersih" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tahun" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="bulan" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="77" splitType="Stretch">
+			<staticText>
+				<reportElement x="150" y="0" width="280" height="30" uuid="d81e8bb5-72bb-463a-8955-3531ffabba46"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Laporan Keuntungan Bulanan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="187" y="30" width="190" height="20" uuid="3b9988f4-599f-4204-bb50-a8a5be86ca50"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Sahabat Tani ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="247" y="50" width="100" height="20" uuid="71f40422-fc7a-4e6a-9335-6da9d9ddfc0f"/>
+				<textFieldExpression><![CDATA["Periode: " + 
+    (new String[] {
+        "Januari","Februari","Maret","April","Mei","Juni",
+        "Juli","Agustus","September","Oktober","November","Desember"
+    })[$P{bulan}-1] + 
+    " " + 
+    $P{tahun}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="39" splitType="Stretch">
+			<line>
+				<reportElement x="-20" y="10" width="619" height="1" uuid="091601f1-a825-4141-9255-bb6d094b4380"/>
+			</line>
+			<line>
+				<reportElement x="-20" y="20" width="618" height="1" uuid="cf89515a-68c6-4719-a47b-5161c73cfc28"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="111" height="30" uuid="276b2820-9b10-4e96-a028-9d3a8d285624">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c54c5e48-af29-4deb-a0b3-caa97ecb58e9"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Nama Pupuk]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="0" width="111" height="30" uuid="df87f9f5-e33d-4cdf-8924-483b57db77d9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fd5e7cac-e8b6-4440-bfb9-c8621972216d"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total Terjual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="0" width="111" height="30" uuid="80ff26b7-735d-466e-81af-45602bf7cf9b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dfe7d7e9-f6c8-4dd1-8821-36b5bdde3119"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total Pendapatan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="0" width="111" height="30" uuid="075faefc-cb2c-4f89-92df-99e7388c2188">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5f5b828e-e7d5-477e-bbc3-6d21b7ad8e68"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Harga Jual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="0" width="111" height="30" uuid="d2d455c1-ea19-4b1e-9b63-5bcbdd09624c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c7807771-32ce-421a-9bb6-9cbf7350ff5e"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Keuntungan]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="111" height="30" uuid="645507e6-8381-44d4-93fc-2a3523578d5f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c54c5e48-af29-4deb-a0b3-caa97ecb58e9"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nama_pupuk}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="0" width="111" height="30" uuid="00f52728-2935-420e-bf5e-c68b3b8e7be4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fd5e7cac-e8b6-4440-bfb9-c8621972216d"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{total_qty_terjual}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="0" width="111" height="30" uuid="8d626213-a0f5-41c1-89bd-3275a99427bf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dfe7d7e9-f6c8-4dd1-8821-36b5bdde3119"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{total_penjualan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="333" y="0" width="111" height="30" uuid="9a0c928e-b0d7-4f49-8b86-2f0736e5a346">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5f5b828e-e7d5-477e-bbc3-6d21b7ad8e68"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{harga_jual}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="0" width="111" height="30" uuid="c2eceee6-dd47-4e95-a5e0-e55f0475d830">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c7807771-32ce-421a-9bb6-9cbf7350ff5e"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{keuntungan_bersih}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="18" splitType="Stretch">
+			<line>
+				<reportElement x="-20" y="2" width="619" height="1" uuid="6f8fa63d-da05-4681-99b4-6f567a507540"/>
+			</line>
+			<line>
+				<reportElement x="-20" y="12" width="618" height="1" uuid="b9470e87-0d41-4d76-afd2-80ffde99bd3d"/>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement x="130" y="7" width="322" height="30" uuid="03ca893c-d2b0-4c11-b383-7e122418adca"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[laporan penjualan pupuk sahabat tani pada bulan mei 2025]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

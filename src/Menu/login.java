@@ -187,7 +187,7 @@ public class login extends javax.swing.JFrame {
                     dispose();
                 } else if ("kasir".equals(role)) {
                     LocalTime waktuReal = LocalTime.now();
-                    String status = tentukanStatusPresensi(waktuReal);
+                    String status = "masuk";
                     if (status.equals("masuk")) {
                         if (!mengecekPresensi(idUser, "masuk")) {
                             simpanPresensi(idUser, status);
@@ -200,7 +200,7 @@ public class login extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(this, "presensi pulang berhasil");
                         }
                     }
-                    new menuKasir().setVisible(true);
+                    new Transaksi().setVisible(true);
                     dispose();
                 }
                 
@@ -245,7 +245,7 @@ public class login extends javax.swing.JFrame {
     
     }
       private boolean mengecekPresensi(String idUser, String status){
-          String sql ="SELECT COUNT(*) FROM absensi WHERE id_user = ? AND status = ? AND tanggal = CURDATE()";
+          String sql ="SELECT COUNT(*) FROM absensi WHERE id_user = ? AND status = ? AND DATE (tanggal) = CURDATE()";
           try (PreparedStatement st = conn.prepareStatement(sql)){
               st.setString(1, idUser);
               st.setString(2, status);

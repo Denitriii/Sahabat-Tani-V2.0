@@ -307,18 +307,18 @@ public class formLoginManual extends javax.swing.JFrame {
     private void btnLupaPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLupaPasswordMouseClicked
         JOptionPane.showMessageDialog(this, "Silahkan hubungi owner");
     }//GEN-LAST:event_btnLupaPasswordMouseClicked
-     private String tentukanStatusPresensi(LocalTime waktuReal) {
-        LocalTime waktuSekarang = LocalTime.now();
-        System.out.println("Waktu Sekarang: " + waktuSekarang);
-        
-        if (waktuSekarang.isBefore(LocalTime.of(9, 0))) {
-               return "masuk"; // Hadir tepat waktu (antara 08:00 - 08:59)
-           } else if (waktuSekarang.isBefore(LocalTime.of(15, 0))) {
-               return "masuk"; // Terlambat (antara 09:00 - 14:59)
-           } else {
-               return "pulang"; 
-           }
-    }
+//     private String tentukanStatusPresensi(LocalTime waktuReal) {
+//        LocalTime waktuSekarang = LocalTime.now();
+//        System.out.println("Waktu Sekarang: " + waktuSekarang);
+//        
+//        if (waktuSekarang.isBefore(LocalTime.of(9, 0))) {
+//               return "masuk"; // Hadir tepat waktu (antara 08:00 - 08:59)
+//           } else if (waktuSekarang.isBefore(LocalTime.of(15, 0))) {
+//               return "masuk"; // Terlambat (antara 09:00 - 14:59)
+//           } else {
+//               return "pulang"; 
+//           }
+//    }
     
      private void simpanPresensi(String id_user, String status) {
         String idAbsensi = "AB-" + String.format("%05d", new Random().nextInt(99999));
@@ -340,7 +340,7 @@ public class formLoginManual extends javax.swing.JFrame {
     
     }
       private boolean mengecekPresensi(String idUser, String status){
-          String sql ="SELECT COUNT(*) FROM absensi WHERE id_user = ? AND status = ? AND tanggal = CURDATE()";
+          String sql ="SELECT COUNT(*) FROM absensi WHERE id_user = ? AND status = ? AND DATE(tanggal) = CURDATE()";
           try (PreparedStatement st = conn.prepareStatement(sql)){
               st.setString(1, idUser);
               st.setString(2, status);
@@ -373,22 +373,15 @@ public class formLoginManual extends javax.swing.JFrame {
                         dispose();
                     }else if(txtUsername.getText().equals(rs.getString("id_user"))&&txtPass.getText().equals(rs.getString("password"))&&rs.getString("role").equals("kasir")){
                          LocalTime waktuReal = LocalTime.now();
-                    String status = tentukanStatusPresensi(waktuReal);
+                    String status = "masuk";
                     if (status.equals("masuk")) {
                         if (!mengecekPresensi(idUser, "masuk")) {
                             simpanPresensi(idUser, status);
                             JOptionPane.showMessageDialog(this, "presensi masuk berhasil");
                             
                         }
-                    }else if(status.equals("pulang")){
-                        if (!mengecekPresensi(idUser, "pulang")) {
-                            simpanPresensi(idUser, status);
-                            JOptionPane.showMessageDialog(this, "presensi pulang berhasil");
-                        }
                     }
-                    new menuKasir().setVisible(true);
-                    dispose();
-                        menuKasir kasir = new  menuKasir();
+                        Transaksi kasir = new  Transaksi();
                         kasir.setVisible(true);
                         dispose();
                     } 

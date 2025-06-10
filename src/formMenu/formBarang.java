@@ -32,6 +32,9 @@ import java.util.Map;
 import koneksi.SessionManager;
 import koneksi.koneksiDB;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 /**
  *
@@ -99,7 +102,7 @@ public class formBarang extends RoundedPanel {
         loadProduk();
     }
 
-    private void loadProduk() {
+    public void loadProduk() {
         contentPanel.removeAll();
 
         List<Pupuk> pupukList = PupukDAO.getAllPupuk();
@@ -155,7 +158,39 @@ public class formBarang extends RoundedPanel {
         infoPanel.add(nameLabel);
         infoPanel.add(priceLabel);
         infoPanel.add(stockLabel);
-        infoPanel.add(expiredLabel);
+        
+        // menampilkan eceran jika pupuk dijual ecer
+        int tipe = pupuk.getTipePenujualan();
+        if (tipe==1) {
+        JLabel lbHargaEcer = new JLabel("Harga Ecer: Rp " + pupuk.getHargaEcer());
+        lbHargaEcer.setFont(new Font("Arial", Font.PLAIN, 12));
+        infoPanel.add(lbHargaEcer);
+        JLabel lbStokEcer = new JLabel("Stok Ecer: " + pupuk.getStokEcer()+" Kg");
+        lbStokEcer.setFont(new Font("Arial", Font.PLAIN, 12));
+        lbStokEcer.setForeground(pupuk.getStock() > 20 ? Color.GREEN : Color.RED);
+        infoPanel.add(lbStokEcer);
+        }
+        
+        // exp berwarna merah jika sudah mendekati tanggal
+        try {
+  
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDate expiredDate = LocalDate.parse(pupuk.getTglExpired(), formatter);
+    LocalDate today = LocalDate.now();
+
+    long daysBetween = ChronoUnit.DAYS.between(today, expiredDate);
+
+    if (daysBetween <= 7) {
+        expiredLabel.setForeground(Color.RED);
+    } else {
+        expiredLabel.setForeground(Color.BLACK); 
+    }
+    } catch (Exception e) {
+        expiredLabel.setForeground(Color.GRAY); 
+        System.err.println("Tanggal exp tidak valid: " + e.getMessage());
+    }
+
+    infoPanel.add(expiredLabel);
         // menampilkan diskon label
         DiskonDAO diskonDAO = new DiskonDAO(conn);
         Diskon diskon = diskonDAO.getDiskonAktifByPupukId(pupuk.getId());
@@ -250,7 +285,7 @@ if (diskon != null && diskon.isAktif()) {
     
     popupMenu.show(button, 0, button.getHeight()); // Tampilkan di bawah tombol
 }
-    private void openEditDialog(Pupuk pupuk) {
+   private void openEditDialog(Pupuk pupuk) {
     if (pupuk == null) {
         JOptionPane.showMessageDialog(null, "Data tidak valid!", "Error", JOptionPane.ERROR_MESSAGE);
         return;
@@ -258,32 +293,54 @@ if (diskon != null && diskon.isAktif()) {
 
     JTextField txtNama = new JTextField(pupuk.getNama());
     JTextField txtHarga = new JTextField(String.valueOf(pupuk.getHarga()));
+    JTextField txtHargaEcer = new JTextField(String.valueOf(pupuk.getHargaEcer()));
     JTextField txtStock = new JTextField(String.valueOf(pupuk.getStock()));
-    
 
+    Object[] fields;
 
-    Object[] fields = {
-        "Nama:", txtNama,
-        "Harga:", txtHarga,
-        "Stock:", txtStock
-    };
+    int tipe = pupuk.getTipePenujualan();
+    if (tipe == 1) {
+        // Tipe penjualan satuan + eceran, tampilkan harga eceran
+        fields = new Object[]{
+            "Nama:", txtNama,
+            "Harga:", txtHarga,
+            "Harga ecer:", txtHargaEcer,
+            "Stock:", txtStock
+        };
+    } else {
+        // Tipe hanya satuan, sembunyikan harga eceran
+        fields = new Object[]{
+            "Nama:", txtNama,
+            "Harga:", txtHarga,
+            "Stock:", txtStock
+        };
+    }
 
     int result = JOptionPane.showConfirmDialog(null, fields, "Edit Produk", JOptionPane.OK_CANCEL_OPTION);
 
     if (result == JOptionPane.OK_OPTION) {
-        String nama =txtNama.getText();
+        String nama = txtNama.getText();
         double harga = Double.parseDouble(txtHarga.getText());
         int stok = Integer.parseInt(txtStock.getText());
         String idPupuk = pupuk.getId();
-        if (harga<=0||stok<=0) {
-            JOptionPane.showMessageDialog(this, "Input angka harus valid !","ERROR !",JOptionPane.ERROR_MESSAGE);
+
+        if (harga <= 0 || stok <= 0) {
+            JOptionPane.showMessageDialog(null, "Input angka harus valid!", "ERROR!", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        simpanEdite(nama,harga,stok,idPupuk);
-        JOptionPane.showMessageDialog(this, "Berhasil edit produk");
+
+        if (tipe == 1) {
+            double hargaEcer = Double.parseDouble(txtHargaEcer.getText());
+            simpanEdite(nama, harga, hargaEcer, stok, idPupuk);
+        } else {
+            simpanEdite(nama, harga, 0,stok, idPupuk);
+        }
+
+        JOptionPane.showMessageDialog(null, "Berhasil edit produk");
         loadProduk();
     }
 }
+
     private void refreshData() {
     removeAll(); // Hapus semua komponen lama
     revalidate(); // Validasi ulang
@@ -315,7 +372,7 @@ private void deletePupuk(String idPupuk) {
     if (confirm == JOptionPane.YES_OPTION) {
         try (Connection conn = koneksiDB.BukaKoneksi(); ) {
             String sqlPupuk = "DELETE FROM pupuk WHERE id_pupuk = ?";
-            String sqlRestock= "DELETE FROM restock WHERE id_pupuk = ?";
+            String sqlRestock= "DELETE FROM restock_detail WHERE id_pupuk = ?";
             try(PreparedStatement ps = conn.prepareStatement(sqlRestock)) {
                 ps.setString(1, idPupuk);
                 ps.executeUpdate();
@@ -394,10 +451,10 @@ private void tampilkanDialogRestok(Pupuk pupuk) {
                 return;
             }
             simpanRestokKeDatabase(pupuk.getId(), jumlah, hargaBeli,tglExpired,idSuplier);
-            insertKartuStok(pupuk.getId(), "Restok produk ", jumlah, 0, total, "Restock dari suplier : "+namaSuplierDipilih);
-            JOptionPane.showMessageDialog(null, "Restok berhasil!");
-            
             loadProduk();
+            
+            
+            
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Input tidak valid. Pastikan jumlah dan harga berupa angka.");
         }
@@ -405,25 +462,33 @@ private void tampilkanDialogRestok(Pupuk pupuk) {
 }
 private void simpanRestokKeDatabase(String idPupuk, int jumlah, double hargaBeli, String tanggalExp,String idSuplier) {
     String idRestock = "RS-" + UUID.randomUUID().toString().substring(0, 8);
-    String sql = "INSERT INTO restock (restock_qty, harga_beli, total_harga, id_suplier, id_user, id_pupuk,id_restock,tanggal_restock) " +
-                 "VALUES (?, ?, ?, ?, ?, ?,?, NOW())";
+    String sql = "INSERT INTO restock (total_harga, id_suplier, id_user,id_restock,tanggal_restock) " +
+                 "VALUES (?, ?, ?, ?, NOW())";
+    String detailRestok = "INSERT INTO restock_detail(id_restock, id_pupuk, restock_qty, harga_beli) VALUES (?,?,?,?)";
     String updateTanggal = "UPDATE pupuk SET tgl_expired= ? WHERE id_pupuk = ?;";
     try (PreparedStatement st = conn.prepareStatement(sql);
-         PreparedStatement stTanggalExp = conn.prepareStatement(updateTanggal)) {
-        st.setInt(1, jumlah);
-        st.setDouble(2, hargaBeli);
-        st.setDouble(3, jumlah * hargaBeli);
-        st.setString(4, idSuplier);
-        st.setString(5, SessionManager.getIdUser());
-        st.setString(6, idPupuk);
-        st.setString(7, idRestock);
+         PreparedStatement stTanggalExp = conn.prepareStatement(updateTanggal);
+         PreparedStatement pstDetailRestok = conn.prepareStatement(detailRestok)) {
+  
+        st.setDouble(1, jumlah * hargaBeli);
+        st.setString(2, idSuplier);
+        st.setString(3, SessionManager.getIdUser());
+        st.setString(4, idRestock);
 
         st.executeUpdate();
+        
+        pstDetailRestok.setString(1, idRestock);
+         pstDetailRestok.setString(2, idPupuk);
+         pstDetailRestok.setInt(3, jumlah);
+         pstDetailRestok.setDouble(4, hargaBeli);
+         pstDetailRestok.executeUpdate();
         
         stTanggalExp.setString(1, tanggalExp);
         stTanggalExp.setString(2, idPupuk);
         
         stTanggalExp.executeUpdate();
+        
+         JOptionPane.showMessageDialog(null, "Restok berhasil!");
     } catch (Exception e) {
         e.printStackTrace();
         JOptionPane.showMessageDialog(null, "Gagal menyimpan restok: " + e.getMessage());
@@ -439,14 +504,15 @@ private void simpanRestokKeDatabase(String idPupuk, int jumlah, double hargaBeli
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
-    private void simpanEdite(String nama, double harga, int stok,String idPupuk) {
-        String sqlEdit ="UPDATE pupuk SET nama_pupuk =?, harga_jual = ? , stock = ? WHERE id_pupuk =?";
+    private void simpanEdite(String nama, double harga, double hargaEcer,int stok,String idPupuk) {
+        String sqlEdit ="UPDATE pupuk SET nama_pupuk =?, harga_jual = ? , harga_eceran = ?,stock = ? WHERE id_pupuk =?";
         
         try(PreparedStatement pst = conn.prepareCall(sqlEdit)) {
             pst.setString(1, nama);
             pst.setDouble(2, harga);
-            pst.setInt(3, stok);
-            pst.setString(4, idPupuk);
+            pst.setDouble(3, hargaEcer);
+            pst.setInt(4, stok);
+            pst.setString(5, idPupuk);
             
             pst.executeUpdate();
             

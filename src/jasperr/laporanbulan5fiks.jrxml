@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="laporanbulan5" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="91ad4adc-599f-4f7b-8bb9-56f22727f92f">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_pupuk"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="bulan" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tahun" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * 
+FROM view_laporan_penjualan
+WHERE MONTH(tanggal_transaksi) = $P{bulan} 
+  AND YEAR(tanggal_transaksi) = $P{tahun};]]>
+	</queryString>
+	<field name="id_transaksi" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="id_transaksi"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_transaksi"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="transaksi"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tanggal_transaksi" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="tanggal_transaksi"/>
+		<property name="com.jaspersoft.studio.field.label" value="tanggal_transaksi"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="transaksi"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kasir" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nama"/>
+		<property name="com.jaspersoft.studio.field.label" value="kasir"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="pengguna"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_harga" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="total_harga"/>
+		<property name="com.jaspersoft.studio.field.label" value="total_harga"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="transaksi"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama_pupuk" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qty" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="qty"/>
+		<property name="com.jaspersoft.studio.field.label" value="qty"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="detail_transaksi"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="77" splitType="Stretch">
+			<staticText>
+				<reportElement x="142" y="0" width="280" height="30" uuid="d81e8bb5-72bb-463a-8955-3531ffabba46"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Laporan Penjualan Bulanan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="187" y="30" width="190" height="20" uuid="3b9988f4-599f-4204-bb50-a8a5be86ca50"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Sahabat Tani]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="243" y="57" width="100" height="20" uuid="2d4fb41a-d768-4991-8a04-c272bce5f26b"/>
+				<textFieldExpression><![CDATA["Periode: " + 
+    (new String[] {
+        "Januari","Februari","Maret","April","Mei","Juni",
+        "Juli","Agustus","September","Oktober","November","Desember"
+    })[$P{bulan}-1] + 
+    " " + 
+    $P{tahun}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="39" splitType="Stretch">
+			<line>
+				<reportElement x="-21" y="0" width="619" height="1" uuid="091601f1-a825-4141-9255-bb6d094b4380"/>
+			</line>
+			<line>
+				<reportElement x="-20" y="20" width="618" height="1" uuid="cf89515a-68c6-4719-a47b-5161c73cfc28"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="95" height="30" uuid="0066f553-5d4d-42d0-a7a2-edccf0fec777">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ea596e94-778b-422d-8b69-109144f6fc2e"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[ID Transaksi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="0" width="92" height="30" uuid="b9cf66f1-ec82-44ad-bfb0-29019cb5a30c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="18c42f8d-e590-4348-9124-04c06704d06f"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Tanggal Transaksi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="187" y="0" width="92" height="30" uuid="f47c85fc-db0f-4743-9e48-52aa507e9214">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4df9ba95-3221-4443-9317-503c547a0b8d"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Kasir]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="0" width="92" height="30" uuid="9489a526-1005-4230-a27a-c79dfc9583f7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dcfbf4f2-cc0f-4042-9cd2-3be4de8d67f2"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="371" y="0" width="92" height="30" uuid="aa0ab894-43f3-4f4f-99f8-c67b8abb454b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8c03d2c3-d81a-4ae5-b8fc-670ea110ef51"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Nama Pupuk]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="463" y="0" width="92" height="30" uuid="ad642fcc-96b7-4e9e-a058-424bbb4306a4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ff4c936c-414b-420e-80bb-d89b240ae411"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Jumlah]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="95" height="30" uuid="c5e2614c-cf2a-47f9-bb06-9dfd1ab10fe1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ea596e94-778b-422d-8b69-109144f6fc2e"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id_transaksi}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MMM-yyyy">
+				<reportElement x="95" y="0" width="92" height="30" uuid="996c231f-565d-485f-9cd5-5ccab6810c6e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="18c42f8d-e590-4348-9124-04c06704d06f"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tanggal_transaksi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="187" y="0" width="92" height="30" uuid="25d7d2e1-51a1-4695-8541-a0b298aea6e3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4df9ba95-3221-4443-9317-503c547a0b8d"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{kasir}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="278" y="0" width="92" height="30" uuid="427f2159-1295-45a5-b85c-af847e0611ac">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dcfbf4f2-cc0f-4042-9cd2-3be4de8d67f2"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{total_harga}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="371" y="0" width="92" height="30" uuid="f918af51-0685-4917-86f3-ccb38c1678fd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8c03d2c3-d81a-4ae5-b8fc-670ea110ef51"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nama_pupuk}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="463" y="0" width="92" height="30" uuid="539b3eb3-6984-4de2-98c8-e69124f6c79c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ff4c936c-414b-420e-80bb-d89b240ae411"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="18" splitType="Stretch">
+			<line>
+				<reportElement x="-20" y="2" width="619" height="1" uuid="6f8fa63d-da05-4681-99b4-6f567a507540"/>
+			</line>
+			<line>
+				<reportElement x="-20" y="12" width="618" height="1" uuid="b9470e87-0d41-4d76-afd2-80ffde99bd3d"/>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement x="130" y="7" width="322" height="30" uuid="03ca893c-d2b0-4c11-b383-7e122418adca"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[laporan penjualan pupuk sahabat tani ]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
